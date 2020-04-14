@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="EnergyFriendItemSkin" width="109" height="163" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Image id="bg" source="energy_help_bg_png" />
+    <e:Image id="img" y="110" source="energy_bar_icon_png" width="24" height="36" x="53" />
+    <e:Label id="lab" size="25" touchEnabled="false" text="0" y="116" x="32" textColor="0x372513" bold="true" />
+</e:Skin>
+

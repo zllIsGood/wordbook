@@ -1,0 +1,134 @@
+/* 导航栏
+ * @Author: zhoualnglang 
+ * @Date: 2020-04-11 11:03:23 
+ * @Last Modified by: zhoulanglang
+ * @Last Modified time: 2020-04-11 17:01:01
+ */
+class NavigationWin extends BaseEuiView {
+
+    public recordBtn: eui.Image;
+    public recordingBtn: eui.Image;
+    public recordShareBtn: eui.Image;
+
+    public constructor() {
+        super();
+        this.skinName = 'NavigationSkin'
+    }
+
+    public open(...param: any[]): void {
+        this.addTouchEvent(this.recordBtn, this.onClick);
+        this.addTouchEvent(this.recordingBtn, this.onClick);
+        this.addTouchEvent(this.recordShareBtn, this.onClick);
+        this.observe(UserModel.ins().postVideoStart, this.start)
+        this.observe(UserModel.ins().postVideoStop, this.stop)
+
+        this.upView()
+    }
+
+    private upView() {
+        this.initRecorderState();
+        this.initRecorder();
+    }
+
+    start() {
+        if (Main.recorder) {
+            Main.recording = true;
+            this.recordShareBtn.visible = false
+            egret.localStorage.removeItem(Constant.RECORD_SHARE_URL);
+            Main.recorder.start({ duration: 120 });
+        }
+    }
+
+    stop() {
+        if (Main.recorder) {
+            Main.recording = false;
+            Main.recorder.stop();
+        }
+    }
+
+    public close(...param: any[]): void {
+    }
+
+    private onClick(e: egret.TouchEvent): void {
+        switch (e.currentTarget) {
+            case this.recordBtn:
+                if (Main.recorder) {
+                    Main.recording = true;
+                    this.recordShareBtn.visible = false
+                    egret.localStorage.removeItem(Constant.RECORD_SHARE_URL);
+                    Main.recorder.start({ duration: 120 });
+                }
+                break;
+            case this.recordingBtn:
+                if (Main.recorder) {
+                    Main.recording = false;
+                    Main.recorder.stop();
+                }
+                break;
+            case this.recordShareBtn:
+                RecordService.recordShare();
+                this.recordShareBtn.visible = false
+                break;
+        }
+    }
+
+	/**
+	 * 初始化录屏
+	 */
+    private initRecorder() {
+        let self = this;
+        if (Main.recorder) {
+            Main.recorder.onStart(res => {
+                console.log("录屏开始");
+                self.recordBtn.visible = false
+                self.recordingBtn.visible = false
+                // self.recordingBtn.visible = true
+                Main.recordStartTime = new Date().getTime();
+            });
+            Main.recorder.onStop(res => {
+                console.log("录屏结束", res);
+                self.recordBtn.visible = false
+                // self.recordBtn.visible = true
+                self.recordingBtn.visible = false
+                let stopTime = new Date().getTime();
+                if (stopTime - Main.recordStartTime < 5000) {
+                    console.log("录屏时间过短");
+                    // wx.showToast({
+                    //     icon: 'none',
+                    //     title: "录屏时间过短",
+                    //     duration: 2000
+                    // });
+                } else if (res.videoPath) {
+                    Main.recording = false;
+                    this.recordShareBtn.visible = true
+                    egret.localStorage.setItem(Constant.RECORD_SHARE_URL, res.videoPath);
+                }
+            });
+        }
+    }
+	/**
+	 * 初始化录屏状态
+	 */
+    private initRecorderState() {
+        if (Main.recording) {
+            this.recordBtn.visible = false
+            // this.recordingBtn.visible = true
+            this.recordingBtn.visible = false
+            this.recordShareBtn.visible = false
+        } else {
+            this.recordBtn.visible = false
+            // this.recordBtn.visible = true
+            this.recordingBtn.visible = false
+            if (egret.localStorage.getItem(Constant.RECORD_SHARE_URL)) {
+                this.recordShareBtn.visible = true
+            } else {
+                this.recordShareBtn.visible = false
+            }
+        }
+    }
+
+
+}
+
+ViewManager.ins().reg(NavigationWin, LayerManager.UI_Tips);
+window["NavigationWin"] = NavigationWin;

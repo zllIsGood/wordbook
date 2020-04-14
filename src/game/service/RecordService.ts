@@ -1,0 +1,46 @@
+/**
+ * 顶部导航公共组件
+ * @author kei
+ * @since 2020-03-04
+ */
+class RecordService {
+
+    /**
+	 * 录屏分享
+	 */
+    public static recordShare() {
+        let videoPath = egret.localStorage.getItem(Constant.RECORD_SHARE_URL);
+        egret.localStorage.removeItem(Constant.RECORD_SHARE_URL);
+        if (videoPath) {
+            console.log("分享录屏！", videoPath);
+            let query = JSON.stringify({ shareVideo: true })
+            wx.shareAppMessage({
+                channel: "video",
+                title: "绘动的简笔画",
+                desc: "我发现了一款好玩的绘画游戏，画完还能编辑成动画",
+                imageUrl: Main.shareConfig.common.imageUrl,
+                templateId: Main.ttShareId,
+                query: query,
+                extra: {
+                    videoPath: videoPath, // 可替换成录屏得到的视频地址
+                    videoTopics: ["快来看我画的简笔画，还可以动哦"],
+                    withVideoId: true
+                },
+                success(res) {
+                    console.log("分享录屏成功！增加体力", res);
+                    AdService.shareVideoAward();
+                },
+                fail(err) {
+                    console.log("分享失败！", err);
+                    wx.showToast({
+                        icon: 'none',
+                        title: "取消分享",
+                        duration: 2000
+                    })
+                }
+            })
+        }
+    }
+
+}
+window["RecordService"] = RecordService;

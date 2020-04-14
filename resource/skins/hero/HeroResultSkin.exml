@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HeroResultSkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
+    <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
+    <e:Group id="grp" width="750" height="1334" horizontalCenter="0" verticalCenter="0">
+        <e:Image id="bg" y="210" source="recruit_congratulation_png" horizontalCenter="0" />
+        <e:Label id="lab" size="28" touchEnabled="false" text="" stroke="2" strokeColor="0x2D1C08" bold="true"
+                 horizontalCenter="0" y="315" />
+        <e:Image id="img1" verticalCenter="0" source="recruit_luck_draw_ani_1_png" horizontalCenter="0" />
+        <e:Image id="img2" verticalCenter="0" source="recruit_luck_draw_ani_2_png" horizontalCenter="0" />
+        <e:Image id="img3" verticalCenter="0" source="recruit_luck_draw_ani_3_png" horizontalCenter="0" />
+        <e:Image id="img4" source="recruit_luck_draw_ani_4_png" y="600" x="524" anchorOffsetX="48" anchorOffsetY="40" />
+        <e:Image id="img5" source="recruit_luck_draw_ani_4_png" rotation="120" x="312" y="832" anchorOffsetX="48"
+                 anchorOffsetY="40" scaleX="1" scaleY="1" />
+        <e:Image id="img6" source="recruit_luck_draw_ani_4_png" rotation="240" y="618" x="207" anchorOffsetX="48"
+                 anchorOffsetY="40" />
+        <e:Image id="imgE" horizontalCenter="0" x="10" verticalCenter="0" source="energy_bar_icon_png" />
+        <e:Image id="imgHero" horizontalCenter="0" x="10" verticalCenter="0" scaleX="0.2" scaleY="0.2" source="" />
+        <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="recruite_return_home_png" horizontalCenter="0"
+                     y="941" />
+    </e:Group>
+</e:Skin>
+

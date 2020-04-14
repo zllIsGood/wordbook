@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HeroItemSkin" width="180" height="326" currentState="nor" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" states="nor,mini">
+    <e:Image source="character_item_bg_png" horizontalCenter="0" y="0" />
+    <e:Image id="img" horizontalCenter="0" y="10" x="10" scaleX="0.2" scaleY="0.2" />
+    <e:Image x="0" y="168" source="character_name_border_png" x.mini="-55" y.mini="4" />
+    <e:Label id="lab" text="王\n昭\n君" bold="true" textColor="0x54251B" size="20" x="14" x.mini="-41"
+             verticalCenter.mini="-110" verticalCenter.nor="54" verticalCenter="54" />
+    <e:CheckBox id="checkbox" y="282" skinName="CheckBox1" visible.mini="false" x.nor="40" x="40" />
+    <e:Label id="lab0" text="显示" bold="true" textColor="0x54251B" size="20" x="80" bottom="20" visible.mini="false" />
+</e:Skin>

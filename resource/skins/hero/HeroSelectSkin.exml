@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HeroSelectSkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
+    <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="1" fillColor="0xF6EBCF" />
+    <e:Group width="750" height="1334" horizontalCenter="0" verticalCenter="0">
+        <e:Image y="55" horizontalCenter="0" source="select_card_png" />
+        <ns1:HeroSelectItem id="card0" skinName="HeroSelectItemSkin" x="273" y="307" />
+        <ns1:HeroSelectItem id="card1" skinName="HeroSelectItemSkin" x="273" y="774" />
+        <ns1:HeroSelectItem id="card2" skinName="HeroSelectItemSkin" x="35" y="547" />
+        <ns1:HeroSelectItem id="card3" skinName="HeroSelectItemSkin" x="511" y="547" />
+    </e:Group>
+</e:Skin>
+

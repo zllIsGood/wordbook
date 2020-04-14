@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="EnergyFriendSkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
+    <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
+    <e:Group width="687" height="696" horizontalCenter="0" verticalCenter="0">
+        <e:Image id="bg" x="0" y="0" source="energy_help_dialog_png" />
+        <e:Image x="220" y="286" source="energy_help_arrow_png" />
+        <e:Image x="422" y="286" source="energy_help_arrow_png" />
+        <ns1:EnergyFriendItem id="item1" skinName="EnergyFriendItemSkin" x="81" y="251" />
+        <ns1:EnergyFriendItem id="item2" skinName="EnergyFriendItemSkin" x="282" y="251" />
+        <ns1:EnergyFriendItem id="item3" skinName="EnergyFriendItemSkin" x="483" y="251" />
+        <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="dialog_close_btn_png" right="10" top="0" />
+        <ns1:BaseBtn id="btn" label="" y="454" skinName="Btn2Skin" icon="energy_help_btn_png" x="242" />
+    </e:Group>
+</e:Skin>
+

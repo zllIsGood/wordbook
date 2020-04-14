@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="WordGroupItemSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Label id="lab" text="a" bold="true" textColor="0x2E1D09" size="34" x="10" y="2" />
+    <e:Group id="grp" x="0" y="60" width="580">
+        <ns1:WordItem skinName="WordItemSkin" y="0" />
+        <ns1:WordItem skinName="WordItemSkin" x="200" y="0" />
+        <ns1:WordItem skinName="WordItemSkin" x="400" y="0" />
+        <e:layout>
+            <e:TileLayout horizontalGap="20" />
+        </e:layout>
+    </e:Group>
+</e:Skin>
+

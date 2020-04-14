@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="WordBookSkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
+    <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
+    <e:Group width="687" height="924" horizontalCenter="0" verticalCenter="0">
+        <e:Image id="bg" x="0" y="0" source="glossary-dialog_bg_png" />
+        <e:Image id="bookImg" y="300" horizontalCenter="0" source="glossary_not_state_png" />
+        <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="dialog_close_btn_png" right="-9" top="-7" />
+        <ns1:BaseBtn id="btnL" label="未掌握" skinName="Btn2Skin" icon="glossary_tab_selected_png" x="80" y="120" />
+        <ns1:BaseBtn id="btnR" label="" skinName="Btn2Skin" icon="glossary_tab_selected_png" y="120" right="80" />
+        <e:Scroller id="scrol" width="580" height="600" y="229" horizontalCenter="0" anchorOffsetY="0">
+            <e:DataGroup id="list" itemRendererSkinName="WordGroupItemSkin">
+                <e:ArrayCollection>
+                    <e:Array></e:Array>
+                </e:ArrayCollection>
+                <e:layout>
+                    <e:VerticalLayout horizontalAlign="center" gap="12" />
+                </e:layout>
+            </e:DataGroup>
+        </e:Scroller>
+    </e:Group>
+</e:Skin>
+

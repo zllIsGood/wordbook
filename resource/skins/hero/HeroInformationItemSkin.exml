@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HeroInformationItemSkin" width="560" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:ns1="*">
+    <e:Image y="24" source="character_detail_title_png" x="24" />
+    <e:Label id="lab1" text="王昭君" bold="true" textColor="0x7E4829" size="28" x="68" y="28" />
+    <e:Label id="lab2" text="    王	昭	君" bold="true" textColor="0x47271B" size="20" x="24" top="81" bottom="10"
+             width="510" lineSpacing="20" />
+</e:Skin>
+

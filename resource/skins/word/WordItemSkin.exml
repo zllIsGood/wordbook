@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="WordItemSkin" width="260" height="74" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Image source="word_radio_png" scale9Grid="42,9,2,56" x="0" y="0" width="260" />
+    <e:Image id="img" source="star_gray_png" verticalCenter="0" x="16" />
+    <e:Label id="lab1" text="abc" bold="true" textColor="0x2D1C08" size="31" x="54" y="7" />
+    <e:Label id="lab2" text="abc" bold="true" textColor="0x854529" size="16" x="56" y="45" />
+</e:Skin>
+

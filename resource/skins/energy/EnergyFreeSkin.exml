@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="EnergyFreeSkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
+    <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
+    <e:Group width="669" height="1178" horizontalCenter="0" verticalCenter="0">
+        <e:Image id="bg" x="0" y="0" source="energy_dialog_bg_png" />
+        <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="dialog_close_btn_png" right="-9" top="-7" />
+        <e:Scroller width="565" height="900" y="192" horizontalCenter="0" anchorOffsetY="0">
+            <e:List id="list" itemRendererSkinName="EnergyFreeItemSkin">
+                <e:ArrayCollection>
+                    <e:Array>
+                        <e:Object null="null" />
+                        <e:Object null="null" />
+                    </e:Array>
+                </e:ArrayCollection>
+                <e:layout>
+                    <e:VerticalLayout horizontalAlign="center" gap="15" />
+                </e:layout>
+            </e:List>
+        </e:Scroller>
+    </e:Group>
+</e:Skin>
+

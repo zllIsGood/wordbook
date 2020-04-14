@@ -1,0 +1,13 @@
+{
+    "CoursePlay": [
+        "resource/assets/other/course_play1",
+        "resource/assets/other/course_play2",
+        "resource/assets/other/course_play3",
+        "resource/assets/other/course_play4"
+    ],
+    "HeroResult": {
+        "url": "resource/assets/other/complete_paper",
+        "x": 0,
+        "y": 0
+    }
+}

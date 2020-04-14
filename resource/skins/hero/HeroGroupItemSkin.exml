@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="HeroGroupItemSkin" width="600" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        xmlns:ns1="*">
+    <w:Config id="1717682ab11" fillColor="0xed1717" />
+    <e:Rect fillAlpha="1" y="14" height="1" width="200" x="20" fillColor="0xCCA56D" />
+    <e:Rect fillAlpha="1" y="14" height="1" width="200" fillColor="0xCCA56D" right="20" />
+    <e:Label id="lab" text="四大美猫" bold="true" textColor="0x3E1D12" size="24" y="2" horizontalCenter="0" />
+    <e:Group id="grp" width="580" top="40" bottom="80" x="10">
+        <ns1:HeroItem skinName="HeroItemSkin" y="0" />
+        <ns1:HeroItem skinName="HeroItemSkin" x="200" y="0" />
+        <ns1:HeroItem skinName="HeroItemSkin" x="400" y="0" />
+        <e:layout>
+            <e:TileLayout orientation="rows" horizontalGap="20" />
+        </e:layout>
+    </e:Group>
+    <e:Group bottom="0" width="565" horizontalCenter="0" height="75">
+        <e:Image source="energy_dialog_wrapper_png" height="75" scale9Grid="70,20,425,123" horizontalCenter="0" />
+        <e:Label id="tip" text="四大美猫" bold="true" textColor="0x7E4829" size="21" x="18" verticalCenter="0" />
+        <ns1:BaseBtn id="btn" label="" skinName="Btn2Skin" icon="character_bonus_btn_png" verticalCenter="0" right="22"
+                     width="85" height="44" />
+    </e:Group>
+</e:Skin>
+

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="PlayTipItemSkin" width="200" height="80" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Image source="word_radio_png" scale9Grid="42,9,2,56" width="193" x="0" y="3" />
+    <e:Image source="play_crown_png" />
+    <e:Label id="lab" text="" bold="true" textColor="0x2D1C08" size="20" verticalCenter="0" lineSpacing="2" x="91" />
+</e:Skin>
+

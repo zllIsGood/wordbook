@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="RoleJobItemSkin" width="92" height="191" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Image source="index_protagonist_bg_png" />
+    <e:Label id="lab" text="" bold="true" textColor="0x2F2E2C" size="25" horizontalCenter="0" verticalCenter="0"
+             lineSpacing="4" />
+</e:Skin>
+

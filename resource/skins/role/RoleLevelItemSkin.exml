@@ -1,0 +1,11 @@
+<e:Skin class="RoleLevelItemSkin" width="565" height="95" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Image id="bg" source="upgrade_dialog_bg_active_png" x="50" />
+    <e:Image id="img1" y="-20" horizontalCenter="-270" source="upgrade_dialog_bar_inactive_png" />
+    <e:Image id="img2" y="35" source="upgrade_dialog_icon_current_png" horizontalCenter="-270" />
+    <e:Label id="lab1" size="37" touchEnabled="false" text="秀才" x="84" textColor="0x964501" bold="true" y="29" />
+    <e:Label id="lab2" size="20" touchEnabled="false" text="完成第6关" textColor="0x6B3100" bold="true" y="38" right="36" />
+</e:Skin>
+
+
+
