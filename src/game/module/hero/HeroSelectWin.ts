@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-03 18:39:56 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-09 16:19:43
+ * @Last Modified time: 2020-06-20 16:15:23
  */
 class HeroSelectWin extends BaseEuiView {
 
@@ -10,6 +10,7 @@ class HeroSelectWin extends BaseEuiView {
     private card1: HeroSelectItem;
     private card2: HeroSelectItem;
     private card3: HeroSelectItem;
+    private isDaily = false
 
     constructor() {
         super();
@@ -25,6 +26,7 @@ class HeroSelectWin extends BaseEuiView {
         this.addTouchEvent(this.card1, this.onClick);
         this.addTouchEvent(this.card2, this.onClick);
         this.addTouchEvent(this.card3, this.onClick);
+        this.isDaily = param[0] ? true : false
 
         this.upView()
     }
@@ -44,8 +46,10 @@ class HeroSelectWin extends BaseEuiView {
             if (i == n) {
                 let name = '', img = null;
                 if (data.award.awardType == 2) {
-                    let cfgStr = StringUtils.deleteChangeLine(data.award.sage.data)
-                    let cfg = JSON.parse(cfgStr)
+                    // let cfgStr = StringUtils.deleteChangeLine(data.award.sage.data)
+                    // let cfg = JSON.parse(cfgStr)
+                    let single = HeroModel.ins().getCfgById(data.award.sage.id)
+                    let cfg = single.data
                     name = data.award.sage.name
                     img = cfg.fullImg
                 }
@@ -54,8 +58,10 @@ class HeroSelectWin extends BaseEuiView {
             else {
                 let name = '', img = null;
                 if (other[j].awardType == 2) {
-                    let cfgStr = StringUtils.deleteChangeLine(other[j].sage.data)
-                    let cfg = JSON.parse(cfgStr)
+                    // let cfgStr = StringUtils.deleteChangeLine(other[j].sage.data)
+                    // let cfg = JSON.parse(cfgStr)
+                    let single = HeroModel.ins().getCfgById(other[j].sage.id)
+                    let cfg = single.data
                     name = other[j].sage.name
                     img = cfg.fullImg
                 }
@@ -88,7 +94,17 @@ class HeroSelectWin extends BaseEuiView {
     }
 
     private async select(n) {
-        let data = await HeroModel.ins().hero()
+        let data
+        if (this.isDaily) {
+            data = await HeroModel.ins().heroDaily()
+            if (data == null) {
+                wx.showToast({ icon: 'none', title: "今日次数不足" })
+                return ViewManager.ins().close(this)
+            }
+        }
+        else {
+            data = await HeroModel.ins().hero()
+        }
         this.upResult(data, n)
         ViewManager.ins().open(HeroResultWin, data)
     }

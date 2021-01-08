@@ -15,7 +15,7 @@
         <e:Image id="img6" source="recruit_luck_draw_ani_4_png" rotation="240" y="618" x="207" anchorOffsetX="48"
                  anchorOffsetY="40" />
         <e:Image id="imgE" horizontalCenter="0" x="10" verticalCenter="0" source="energy_bar_icon_png" />
-        <e:Image id="imgHero" horizontalCenter="0" x="10" verticalCenter="0" scaleX="0.2" scaleY="0.2" source="" />
+        <e:Image id="imgHero" horizontalCenter="0" x="10" verticalCenter="0" source="" />
         <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="recruite_return_home_png" horizontalCenter="0"
                      y="941" />
     </e:Group>

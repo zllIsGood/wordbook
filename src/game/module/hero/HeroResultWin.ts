@@ -52,8 +52,10 @@ class HeroResultWin extends BaseEuiView {
         }
         else if (data.awardType == 2) { //招贤
             this.imgHero.visible = true
-            let cfgStr = StringUtils.deleteChangeLine(data.sage.data)
-            let cfg = JSON.parse(cfgStr)
+            // let cfgStr = StringUtils.deleteChangeLine(data.sage.data)
+            let single = HeroModel.ins().getCfgById(data.sage.id)
+            let cfg = single.data
+            // let cfg = JSON.parse(cfgStr)
             this.imgHero.source = cfg.fullImg
             str += data.sage.name
         }

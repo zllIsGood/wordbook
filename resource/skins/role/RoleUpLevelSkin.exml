@@ -2,7 +2,7 @@
 <e:Skin class="RoleUpLevelSkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
         xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
     <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
-    <e:Group width="687" height="921" horizontalCenter="0" verticalCenter="0">
+    <e:Group width="687" height="921" horizontalCenter="0" verticalCenter="-23.5">
         <e:Image id="bg" source="query_word_dialog_bg_png" x="0" y="0" />
         <e:Image id="topImg" y="80" source="protagonist_dialog_title_png" horizontalCenter="0" />
         <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="dialog_close_btn_png" right="-9" top="-7" />

@@ -4,21 +4,23 @@
     <!--<e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
     -->
     <e:Image id="bg" horizontalCenter="0" verticalCenter="0" source="" />
-    <e:Group width="750" height="1334" horizontalCenter="0" verticalCenter="0">
+    <e:Group id="mainGrp" width="750" height="1334" horizontalCenter="0" verticalCenter="0">
         <e:Image id="house" y="0" x="0" source="" />
-        <e:Group id="heroGrp" y="597" width="727" horizontalCenter="0">
-            <ns1:RoleItem skinName="RoleItemSkin" x="560" y="0" data="" />
-            <ns1:RoleItem skinName="RoleItemSkin" x="400" y="0" data="" />
-        </e:Group>
-        <ns1:RoleItem id="role" skinName="RoleItemSkin" x="275" y="840" />
-        <ns1:RoleJobItem id="roleJob" skinName="RoleJobItemSkin" x="171" y="832" />
-        <e:Group id="topGrp" x="23" y="21">
+        <e:Scroller id="scrol0" width="750" height="380" y="465" x="0" scrollPolicyV="off" scrollPolicyH="on">
+            <e:Group id="heroGrp" y="597">
+                <e:Group id="heroGrp0" y="20" height="230" x="0" scaleX="1" scaleY="1" />
+                <e:Group id="heroGrp1" y="150" height="230" x="0" scaleX="1" scaleY="1" />
+            </e:Group>
+        </e:Scroller>
+        <ns1:RoleItem id="role" skinName="RoleItemSkin" y="800" x="305" />
+        <ns1:RoleJobItem id="roleJob" skinName="RoleJobItemSkin" x="170" y="832" />
+        <e:Group id="topGrp" x="23" y="21" width="290">
             <e:Image x="0" y="3" source="energy_bar_wrapper_png" />
             <e:Image x="12" y="-9" source="energy_bar_icon_png" />
             <e:Label id="energyNum" size="25" touchEnabled="false" text="0" x="38" y="37" stroke="2"
                      strokeColor="0x2D1C08" bold="true" />
-            <e:Label id="leftTimeLab" size="25" touchEnabled="false" text="00:00" x="97" y="24" bold="true" stroke="2"
-                     strokeColor="0x2D1C08" />
+            <e:Label id="leftTimeLab" size="25" touchEnabled="false" text="00:00" bold="true" stroke="2"
+                     strokeColor="0x2D1C08" horizontalCenter="0" y="26" />
             <ns1:BaseBtn id="energyBtn" y="-3" x="209" skinName="Btn2Skin" icon="energy_bar_btn_png" />
         </e:Group>
         <e:Group id="bottomGrp" height="260" x="202" y="1027">
@@ -26,8 +28,12 @@
             <ns1:BaseBtn id="upgradeBtn" label="" y="0" skinName="Btn2Skin" x="0" icon="upgrade_action_character_png" />
         </e:Group>
         <e:Group id="leftGrp" width="120" height="260" x="35" y="1027">
-            <ns1:BaseBtn id="rankBtn" label="" y="0" skinName="Btn2Skin" x="0" icon="index_rank_btn_png" />
+            <ns1:BaseBtn id="rankBtn" label="" y="0" skinName="Btn2Skin" x="0" icon="index_rank_btn_png" visible="false" />
+            <ns1:BaseBtn id="recruitkBtn" label="3" y="0" icon="index_recruit_btn_png" skinName="Btn3Skin" x="16" />
             <ns1:BaseBtn id="freeBtn" label="" y="130" skinName="Btn2Skin" x="0" icon="index_energy_btn_png" />
+            <ns1:BaseBtn id="setBtn" label="" y="-130" skinName="Btn2Skin" icon="index_set_png" horizontalCenter="0"
+                         visible="false" />
+            <e:Image id="recruitRed" y="-7" source="red_dot_png" x="82" touchEnabled="false" visible="false" />
         </e:Group>
         <e:Group id="stageGrp" y="1090" horizontalCenter="0">
             <e:Image y="0" x="0" source="number_need_png" />

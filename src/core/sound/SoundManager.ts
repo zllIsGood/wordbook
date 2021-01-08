@@ -55,6 +55,13 @@ class SoundManager extends BaseClass {
 		this.effect.play(effectName);
 	}
 
+	/**播放单词发音*/
+	public playWord(effectName: string, volume: number = 0.5): void {
+		// console.log(effectName)
+		this.setEffectVolume(volume)
+		this.effect.play(effectName);
+	}
+
 	/**
 	 * 播放背景音乐
 	 * @param key
@@ -65,6 +72,12 @@ class SoundManager extends BaseClass {
 		if (!this.bgOn || !UserModel.ins().musicOpen)
 			return;
 
+		if (!RES.hasRes(name)) {
+			TimerManager.ins().doTimer(1000, 1, () => {
+				this.bg.play(name, 0)
+			}, this)
+			return
+		}
 		this.bg.play(name, 0);
 	}
 

@@ -9,21 +9,21 @@ class RecordService {
 	 * 录屏分享
 	 */
     public static recordShare() {
-        let videoPath = egret.localStorage.getItem(Constant.RECORD_SHARE_URL);
+        let videoPath = CacheUtil.get(Constant.RECORD_SHARE_URL);
         egret.localStorage.removeItem(Constant.RECORD_SHARE_URL);
         if (videoPath) {
             console.log("分享录屏！", videoPath);
             let query = JSON.stringify({ shareVideo: true })
             wx.shareAppMessage({
                 channel: "video",
-                title: "绘动的简笔画",
-                desc: "我发现了一款好玩的绘画游戏，画完还能编辑成动画",
+                title: "单词喵",
+                desc: "快来跟我一起拼单词收集喵星人吧",
                 imageUrl: Main.shareConfig.common.imageUrl,
                 templateId: Main.ttShareId,
                 query: query,
                 extra: {
                     videoPath: videoPath, // 可替换成录屏得到的视频地址
-                    videoTopics: ["快来看我画的简笔画，还可以动哦"],
+                    videoTopics: [" 我发现了一款好玩的拼单词游戏，快来跟我一起玩吧"],
                     withVideoId: true
                 },
                 success(res) {
@@ -39,6 +39,14 @@ class RecordService {
                     })
                 }
             })
+        }
+        else {
+            console.log('录屏分享已失效')
+            // wx.showToast({
+            //     icon: 'none',
+            //     title: "录屏分享已失效",
+            //     duration: 2000
+            // })
         }
     }
 

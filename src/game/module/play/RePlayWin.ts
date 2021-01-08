@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-01 16:07:29 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-07 19:00:33
+ * @Last Modified time: 2020-04-18 18:24:36
  */
 class RePlayWin extends BaseEuiView {
 
@@ -27,6 +27,8 @@ class RePlayWin extends BaseEuiView {
         this.fun = param[0]
         this.callthis = param[1]
         this.upView()
+        // AdService.createBannerAd(Ad.dialogBanner)
+        App.ins().playBannerAd(Ad.dialogBanner)
     }
 
     private upView() {
@@ -38,6 +40,7 @@ class RePlayWin extends BaseEuiView {
     public close(...param: any[]): void {
         // this.removeTouchEvent(this.closeBtn, this.onClick);
         // this.removeObserve();
+        App.ins().destoryBanner()
     }
 
     /**点击 */

@@ -7,6 +7,8 @@
 class BaseBtn extends eui.Button {
     public miniIcon = ''
     public miniIconObj: eui.Image
+    public miniLabelObj?: eui.Label
+    public miniLabel: string
 
     public constructor() {
         super();

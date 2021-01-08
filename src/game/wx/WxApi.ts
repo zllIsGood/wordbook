@@ -22,7 +22,7 @@ declare namespace wx {
     let getSystemInfo: Function;
 
     let getMenuButtonBoundingClientRect: Function;
-    
+
     let shareAppMessage: Function;
 
     let getLaunchOptionsSync: Function;
@@ -68,6 +68,11 @@ declare namespace wx {
     let onMemoryWarning: Function;
 
     let uploadFile: Function;
+
+    let setUserGroup: Function;
+
+    let setUserCloudStorage: Function;
+
 
 }
 

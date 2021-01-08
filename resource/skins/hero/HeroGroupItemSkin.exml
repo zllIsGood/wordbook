@@ -3,14 +3,14 @@
         xmlns:ns1="*">
     <w:Config id="1717682ab11" fillColor="0xed1717" />
     <e:Rect fillAlpha="1" y="14" height="1" width="200" x="20" fillColor="0xCCA56D" />
-    <e:Rect fillAlpha="1" y="14" height="1" width="200" fillColor="0xCCA56D" right="20" />
+    <e:Rect fillAlpha="1" y="14" height="1" width="200" fillColor="0xCCA56D" x="380" />
     <e:Label id="lab" text="四大美猫" bold="true" textColor="0x3E1D12" size="24" y="2" horizontalCenter="0" />
     <e:Group id="grp" width="580" top="40" bottom="80" x="10">
         <ns1:HeroItem skinName="HeroItemSkin" y="0" />
         <ns1:HeroItem skinName="HeroItemSkin" x="200" y="0" />
         <ns1:HeroItem skinName="HeroItemSkin" x="400" y="0" />
         <e:layout>
-            <e:TileLayout orientation="rows" horizontalGap="20" />
+            <e:TileLayout orientation="rows" horizontalGap="20" verticalGap="6" />
         </e:layout>
     </e:Group>
     <e:Group bottom="0" width="565" horizontalCenter="0" height="75">

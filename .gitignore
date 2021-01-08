@@ -10,3 +10,5 @@ bin-debug/
 bin-release/
 
 .DS_Store
+
+manifest.json

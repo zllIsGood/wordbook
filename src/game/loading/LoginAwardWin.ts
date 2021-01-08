@@ -2,15 +2,15 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-09 12:38:12 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-09 14:00:22
+ * @Last Modified time: 2020-04-30 12:30:49
  */
 
 class LoginAwardWin extends BaseEuiView {
 
 	public doubleAward: BaseBtn;
-	public award: BaseBtn;
+	public award: eui.Image// BaseBtn;
 	public closeBtn: BaseBtn;
-	private title: eui.Label
+	private count: eui.Label
 
 	private defScale: number = 1.2;
 	private btnScale: number = this.defScale;
@@ -25,18 +25,44 @@ class LoginAwardWin extends BaseEuiView {
 		this.addTouchEndEvent(this.doubleAward, this.onClick)
 		this.addTouchEndEvent(this.closeBtn, this.onClick)
 		this.upView()
+		App.ins().playBannerAd(Ad.dialogBanner)
 	}
 
 	private upView() {
-		this.title.text = '登录奖励'
+		let cfg = Main.energyConfig
+		this.count.text = cfg.loginAward
+
+		this.doubleAward.visible = !App.ins().hideAdIcon()
+		if (App.ins().adNotScore()) {
+			this.doubleAward.icon = 'energy_dialog_watch_02_png'
+			this.award.visible = true
+
+			egret.Tween.removeTweens(this.doubleAward)
+			this.doubleAward.scaleX = 1
+			this.doubleAward.scaleY = 1
+			let tw = egret.Tween.get(this.doubleAward, { loop: true })
+			tw.to({ scaleX: 1, scaleY: 1 }, 500)
+				.to({ scaleX: 0.92, scaleY: 0.92 }, 500)
+				.to({ scaleX: 1, scaleY: 1 }, 500)
+		}
+		else {
+			this.doubleAward.icon = 'energy_score_get_png'
+			this.award.visible = false
+		}
+
 	}
 
 	private onClick(e: egret.TouchEvent): void {
 		switch (e.currentTarget) {
 			case this.doubleAward:
-				console.log("login doubleAward btn click!");
-				// 双倍奖励
-				AdService.watchAd(AwardType.LOGIN_AWARD);
+				if (App.ins().adNotScore()) {
+					// 双倍奖励
+					App.ins().playRewardVideoAd(AwardType.LOGIN_AWARD);
+				}
+				else {
+					// 直接奖励
+					AdService.loginAward(false);
+				}
 				ViewManager.ins().close(this)
 				break;
 			case this.award:
@@ -52,7 +78,8 @@ class LoginAwardWin extends BaseEuiView {
 	}
 
 	public close(...param: any[]): void {
-
+		App.ins().destoryBanner()
+		egret.Tween.removeTweens(this.doubleAward)
 	}
 
 	// public timer(): void {
@@ -69,5 +96,5 @@ class LoginAwardWin extends BaseEuiView {
 	// }
 
 }
-ViewManager.ins().reg(LoginAwardWin, LayerManager.UI_Tips);
+ViewManager.ins().reg(LoginAwardWin, LayerManager.UI_Popup);
 window["LoginAwardWin"] = LoginAwardWin;

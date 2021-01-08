@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-01 13:47:19 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-13 20:04:18
+ * @Last Modified time: 2020-04-30 14:23:58
  */
 class PlayWin extends BaseEuiView {
 
@@ -14,6 +14,12 @@ class PlayWin extends BaseEuiView {
     private grp2: eui.Group;
     private stageNumGrp: eui.Group;
     private playTip: PlayTipItem;
+    private searchGrp: eui.Group;
+    private searchLabGrp: eui.Group;
+    private searchLab: eui.Label;
+    private searchLab0: eui.Label;
+    private searchLab1: eui.Label;
+    private searchImg: eui.Image;
 
     private topItems: AlphabetItem[]
     private bottomItems: AlphabetItem[]
@@ -30,20 +36,121 @@ class PlayWin extends BaseEuiView {
     public open(...param: any[]): void {
         this.addTouchEvent(this.courseBtn, this.onClick);
         this.addTouchEvent(this.returnBtn, this.onClick);
-        this.addTouchEvent(this.tipBtn, this.onClick);
         this.addTouchEvent(this.replayBtn, this.onClick);
+        this.addTouchEvent(this.searchGrp, this.onSearchGrp);
+        this.addTouchEvent(this.tipBtn, this.tip);
 
+        this.searchGrp.mask = new egret.Rectangle(0, 0, 714, 42)
         this.initView()
+        this.initTip()
+        this.upSearch()
         UserModel.ins().postVideoStart()
     }
 
-    private async initView() {
+    private async initTip() {
+        this.playTip.visible = false
+        let upVo = await PlayModel.ins().getNextUpgrade()
+
+        if (upVo && upVo.nextBonusState != 3 && upVo.count > 0) {
+            this.playTip.data = { type: 1, upGradeVo: upVo }
+            this.playTip.visible = true
+        }
+        else {
+            this.playTip.visible = false
+        }
+    }
+
+    private onSearchGrp() {
+        console.log('onSearchGrp btn!')
+        let showMeans = PlayModel.ins().showMeans
+        if (!showMeans) {
+            ViewManager.ins().open(PlaySearchWin, this.upMean, this)
+            // App.ins().watchAdCall(AwardType.TIP_VIDEO, (() => {
+            //     PlayModel.ins().setShowMeans(true)
+            //     this.upSearch()
+            // }).bind(this))
+        }
+    }
+
+    private upMean() {
+        App.ins().watchAdCall(AwardType.TIP_VIDEO, (() => {
+            PlayModel.ins().setShowMeans(true)
+            this.upSearch()
+        }).bind(this))
+    }
+
+    private async upSearch() {
+        let showMeans = PlayModel.ins().showMeans
+        let showTw = false
+        let str = null
+        let item = this.getCurItem()
+        if (showMeans && item) {
+            this.searchLabGrp.visible = true
+            this.searchImg.visible = false
+            this.searchLab.visible = false
+            showTw = true
+            let fromWord = item.data.fromWord
+
+            for (let i in fromWord) {
+                if (str == null) {
+                    str = ''
+                }
+                else {
+                    str += '  '
+                }
+                let m_word = PlayModel.ins().getStageWord(fromWord[i])
+                if (m_word.isHorizon) {
+                    str += `横向:`
+                }
+                else {
+                    str += `纵向:`
+                }
+                let wordDate = await WordModel.ins().getWord(fromWord[i])
+                for (let item of wordDate.basic.explains) {
+                    str += `${item};`
+                }
+            }
+        }
+        else {
+            this.searchLabGrp.visible = false
+            this.searchImg.visible = true
+            this.searchLab.visible = true
+        }
+        if (showTw) {
+            this.searchLab0.text = str
+            this.searchLab1.text = str
+            egret.Tween.removeTweens(this)
+            this.weight = 0
+            this.changeSearch()
+            let width = this.searchLab0.width
+            if (width > this.searchGrp.width) {
+                let tw = egret.Tween.get(this, { loop: true, onChange: this.changeSearch, onChangeObj: this })
+                tw.wait(500).to({ weight: 1 }, width * 30).call(() => {
+                    this.weight = 0
+                }, this)
+            }
+            else {
+                this.searchLab1.text = ''
+            }
+        }
+        else {
+            egret.Tween.removeTweens(this)
+            this.searchLab0.text = ''
+            this.searchLab1.text = ''
+        }
+    }
+    private weight = 0
+    private changeSearch() {
+        this.searchLab0.x = this.searchLab0.width * (-this.weight)
+        this.searchLab1.x = this.searchLab0.width * (-this.weight + 1)
+    }
+
+    private initView() {
         this.grp1.removeChildren()
         this.grp2.removeChildren()
         this.topItems = []
         this.bottomItems = []
 
-        await PlayModel.ins().play()
         let topWords = PlayModel.ins().getTopWords()
         let bottomWords = PlayModel.ins().getBottomWords()
 
@@ -52,26 +159,28 @@ class PlayWin extends BaseEuiView {
             obj.currentState = 'top'
             obj.data = item
             this.grp1.addChild(obj)
-            obj.x = item.x * 60 + 20 + 26
-            obj.y = item.y * 60 + 20 + 26
+            obj.x = item.x * 57 + 20 + 26
+            obj.y = item.y * 57 + 20 + 26
             if (item.isBlank) {
                 this.addTouchEvent(obj, this.onTop)
             }
             this.topItems.push(obj)
         }
-        let x = 10 + 26, y = 10 + 26;
+        let x = 0 + 26, y = 0 + 26;
         for (let item of bottomWords) {
             let obj = new AlphabetItem()
             obj.currentState = 'bottom'
             obj.data = item
             obj.x = x
             obj.y = y
-            if (x >= 650) {
-                y += 90
-                x = 10
+            obj.scaleX = 1.175
+            obj.scaleY = 1.175
+            if (x >= (700 - 94)) {
+                y += 94 + 10
+                x = 0 + 26
             }
             else {
-                x += 90
+                x += 94 + 7
             }
             this.grp2.addChild(obj)
             if (item.state == AlphabetItemState.bottom_hide) {
@@ -81,10 +190,29 @@ class PlayWin extends BaseEuiView {
             this.bottomItems.push(obj)
         }
 
+        this.upTipCount()
         this.upStage()
         this.upTopColor()
         if (!this.getCurItem()) {
             this.goWin()
+        }
+    }
+
+    private upTipCount() {
+        let c = PlayModel.ins().tipCount
+        if (c > 0) {
+            this.tipBtn.miniLabel = String(c)
+            this.tipBtn.icon = 'tip_btn_png'
+        }
+        else {
+            this.tipBtn.miniLabel = ''
+            // this.tipBtn.icon = 'tip_btn_share_png'
+            if (App.ins().adNotScore()) {
+                this.tipBtn.icon = App.ins().hideAdIcon() ? 'tip_btn_png' : 'tip_btn_share_png'
+            }
+            else {
+                this.tipBtn.icon = 'tip_btn_score_png'
+            }
         }
     }
 
@@ -104,14 +232,6 @@ class PlayWin extends BaseEuiView {
         obj.source = 'number_level_png'
         this.stageNumGrp.addChild(obj)
 
-        let upVo = Main.userData.upGradeVo
-        if (upVo && upVo.nextBonusState != 3) {
-            this.playTip.data = { type: 1, upGradeVo: upVo }
-            this.playTip.visible = true
-        }
-        else {
-            this.playTip.visible = false
-        }
     }
 
 
@@ -121,6 +241,7 @@ class PlayWin extends BaseEuiView {
         this.bottomItems = null
         this.stageNumGrp.removeChildren()
         UserModel.ins().postVideoStop()
+        egret.Tween.removeTweens(this)
     }
 
     private onTop(e: egret.TouchEvent) {
@@ -145,14 +266,19 @@ class PlayWin extends BaseEuiView {
             cur.upDate()
             target.upDate()
             this.upTopColor()
+            this.upSearch()
         }
     }
 
     private onBottom(e: egret.TouchEvent) {
         let target = e.currentTarget as AlphabetItem
+        let cur = this.getCurItem()
+        this.inputWord(cur, target)
+    }
+
+    private inputWord(cur: AlphabetItem, target: AlphabetItem) {
         target.visible = false
         target.data.state = AlphabetItemState.bottom_hide
-        let cur = this.getCurItem()
         if (cur.data.num != -1) { //已经选了1个 需要放回
             let hide = this.bottomItems[cur.data.num]
             hide.visible = true
@@ -164,7 +290,6 @@ class PlayWin extends BaseEuiView {
         cur.data.input = char
 
         let locks = PlayModel.ins().getStateWord(cur.data)
-        // cur.data.state = locks ? AlphabetItemState.locked : AlphabetItemState.state_wrong
         if (locks.type == 1) {
             SoundManager.ins().playEffect('finish_mp3')
             this.upLock(locks.data)
@@ -182,6 +307,7 @@ class PlayWin extends BaseEuiView {
             this.resetNext(cur)
         }
         this.upTopColor()
+        this.upSearch()
     }
 
     private getCurItem() {
@@ -281,24 +407,79 @@ class PlayWin extends BaseEuiView {
             case this.courseBtn:
                 ViewManager.ins().open(CoursePlayWin)
                 break;
-            case this.tipBtn:
-                if (PlayModel.ins().tipCount > 0) {
-                    PlayModel.ins().tipCount--
-                    this.tip()
-                }
-                else {
-                    //watchad
-                    PlayModel.ins().playTip()
-                }
-                break;
             case this.replayBtn:
                 ViewManager.ins().open(RePlayWin, this.replay, this)
                 break;
         }
     }
 
-    private tip() {
+    private async tip() {
         console.log('tip')
+        if (PlayModel.ins().tipCount > 0) {
+            await PlayModel.ins().playTip()
+            this.showTip()
+            this.upTipCount()
+        }
+        else {
+            if (App.ins().hideAdIcon()) {
+                return
+            }
+            App.ins().watchAdCall(AwardType.TIP_VIDEO, this.showTip.bind(this))
+        }
+    }
+
+    private showTip() {
+        let cur = this.getCurItem()
+        if (!cur) {
+            return
+        }
+        let bot = this.getShowBottom(cur.data.alphabet)
+        if (!bot) {
+            this.reWord(cur.data.alphabet)
+            bot = this.getShowBottom(cur.data.alphabet)
+        }
+        this.inputWord(cur, bot)
+
+        this.upTopColor()
+    }
+
+    private reWord(alphabet: string) {
+        let ret = null
+        for (let item of this.topItems) {
+            if (item.visible && (item.data.state == AlphabetItemState.state_wrong || item.data.state == AlphabetItemState.input_wrong) && item.data.input == alphabet) {
+                ret = item
+                break;
+            }
+        }
+        if (ret) {
+            this.resetAlphabet(ret)
+        }
+    }
+
+    /**将字母放回去*/
+    private resetAlphabet(obj: AlphabetItem) {
+        if (obj.data.state == AlphabetItemState.blank) {
+            obj.data.state = AlphabetItemState.input
+        }
+        else if (obj.data.state == AlphabetItemState.state_wrong || obj.data.state == AlphabetItemState.input_wrong) {
+            let hide = this.bottomItems[obj.data.num]
+            hide.visible = true
+            hide.data.state = AlphabetItemState.bottom_show
+            hide.upDate()
+            obj.data.state = AlphabetItemState.blank
+            obj.data.num = -1
+            obj.data.input = null
+        }
+        obj.upDate()
+    }
+
+    private getShowBottom(alphabet: string) {
+        for (let item of this.bottomItems) {
+            if (item.visible && item.data.alphabet == alphabet) {
+                return item
+            }
+        }
+        return null
     }
 }
 ViewManager.ins().reg(PlayWin, LayerManager.UI_Main);

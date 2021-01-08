@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-03 10:20:40 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-09 20:30:57
+ * @Last Modified time: 2020-04-30 13:53:54
  */
 class WordModel extends BaseClass {
 
@@ -23,6 +23,23 @@ class WordModel extends BaseClass {
     public wordBook1: any[] = null
     /**已掌握*/
     public wordBook2: any[] = null
+
+    /**是否显示分享*/
+    public isShowShare() {
+        if (Main.gamePlatform == Main.platformTT) {
+            return true
+        }
+        else if (Main.gamePlatform == Main.platformApp) {
+            return false
+        }
+        else if (Main.gamePlatform == Main.platformIOS) {
+            return false
+        }
+        else if (Main.gamePlatform == Main.platformH5) {
+            return false
+        }
+        return false
+    }
 
     public isReportErr(word: string) {
         if (this.wordsErr[word]) {
@@ -184,7 +201,9 @@ class WordModel extends BaseClass {
             else {
                 this.wordBook2 = res.data
             }
-            this.postBook()
+            if (needRefresh) {
+                this.postBook()
+            }
             return res.data
         }
     }
@@ -201,6 +220,7 @@ class WordModel extends BaseClass {
         console.log("WORD_CHANGESTATE data:", res);
         if (res.code === 0) {
             this.changeState(wbId, state)
+            this.postBook()
             return true
         }
         return false

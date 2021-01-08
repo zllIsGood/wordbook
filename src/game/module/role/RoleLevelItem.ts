@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-02 14:54:40 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-08 14:38:30
+ * @Last Modified time: 2020-04-30 16:04:39
  */
 class RoleLevelItem extends eui.ItemRenderer {
 
@@ -11,7 +11,7 @@ class RoleLevelItem extends eui.ItemRenderer {
     private img2: eui.Image;
     private lab1: eui.Label;
     private lab2: eui.Label;
-    public data: { cfg, curId }
+    public data: { cfg, curId, maxId }
 
     public constructor() {
         super();
@@ -50,6 +50,7 @@ class RoleLevelItem extends eui.ItemRenderer {
         else if (myid < data.id) {
             type = 1
         }
+        this.img1.visible = !(this.data.maxId == data.id)
         this.setState(type)
     }
 
@@ -70,7 +71,7 @@ class RoleLevelItem extends eui.ItemRenderer {
             color1 = 0x808080
             color2 = 0x464646
             img1 = 'upgrade_dialog_bar_inactive_png'
-            img2 = 'radiobutton_unselect_png'
+            img2 = 'radiobutton_select_png'
             bg = 'upgrade_dialog_bg_inactive_png'
         }
 

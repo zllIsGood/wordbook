@@ -10,16 +10,20 @@ class Main extends eui.UILayer {
 	public static ossUrl: string = "https://cdnzmg.zmfamily.cn/";
 
 	// 平台相关配置
-	public static version: string = "10500";
+	public static version: string = "20300"; //猫咪学单词10900  单词喵20000
 	public static platformWX: string = "1";
 	public static platformQQ: string = "2";
 	public static platformTT: string = "3";
-	public static gamePlatform: string = Main.platformTT;
-	// 关卡配置
+	public static platformApp: string = "4";
+	public static platformH5: string = "5";
+	public static platformIOS: string = "7";
+	public static gamePlatform: string = Main.platformApp;
+	public static adId: string = '201'; //猫咪学单词2  单词喵201
+	// 关卡配置 
 	// public static gameStageList: Array<GameStage> = new Array;
 	// public static gameStageMap: Map<string, GameStage> = new Map;
-	public static userData: any; // 用户数据，例如体力，解锁关卡数，解锁画笔数  
-	public static sageList: any[]; // 招贤
+	public static userData: { upGradeVo, energy, houseId, personId, id, refreshTime, stageNum, stageFinNum }; // 用户数据，例如体力，关卡数，
+	public static sageList: { sageId, count?, level?, sage }[]; // 招贤
 	// public static drawStage: GameStage; // 选择的关卡
 	// 程序参数
 	public static reqTimeout = 10000;
@@ -30,7 +34,7 @@ class Main extends eui.UILayer {
 	public static pixelRatio: number;
 	public static scaleRatio: number;
 	public static statusBarHeight: number;
-	public static platform: string;
+	// public static platform: string;
 	// 体力值相关配置项
 	public static energyConfig: any;
 	// 公共事件巴士；
@@ -38,12 +42,8 @@ class Main extends eui.UILayer {
 	// 公共分享配置
 	public static shareConfig: any = {
 		common: {
-			imageUrl: "https://zm-draw.oss-cn-shenzhen.aliyuncs.com/config/bee/bee.png",
-			title: "我发现了一款好玩的绘画游戏，还能自己制作动画学习英语，赶紧来玩吧！"
-		},
-		works: {
-			imageUrl: "https://zm-draw.oss-cn-shenzhen.aliyuncs.com/config/{name}/{name}.png",
-			title: "快来看看我绘制的动画作品"
+			imageUrl: GlobalConfig.helpImgUrl,
+			title: "我发现了一款好玩的拼单词游戏，快来跟我一起玩吧！"
 		},
 	};
 
@@ -55,14 +55,17 @@ class Main extends eui.UILayer {
 	public static recorder: any;
 	public static recording: boolean = false;
 	public static recordStartTime: number = 0;
+	public static recordTime: number = 5000;
 	// 广告配置
 	public static videoAd: any;
 	/**bgm*/
-	public static bgm = 'http://zm-data-wx.oss-cn-shenzhen.aliyuncs.com/cw/source/%E9%9F%B3%E4%B9%90/bgm.mp3'
+	public static bgm = 'https://cdnzmg.zmfamily.cn/word/bgm.mp3'
+	public static res_url = 'https://cdnzmg.zmfamily.cn/word/res_url_cfg.json'  //'./word_res/res_url_cfg.json' //
 
 
 	protected createChildren(): void {
 		super.createChildren();
+		App.ins().playOpenAd()
 
 		egret.Logger.logLevel = egret.Logger.ALL;
 		// 设置跨域访问资源
@@ -75,6 +78,14 @@ class Main extends eui.UILayer {
 		RES.setMaxLoadingThread(4);
 		//适配方式
 		StageUtils.ins().resetMode()
+		egret.lifecycle.onPause = () => {
+			egret.ticker.pause();
+			SoundManager.ins().setEffectOn(false)
+		}
+		egret.lifecycle.onResume = () => {
+			egret.ticker.resume();
+			SoundManager.ins().setEffectOn(true)
+		}
 
 		this.runGame().catch(e => {
 			console.log(e);
@@ -86,27 +97,36 @@ class Main extends eui.UILayer {
 	}
 
 	private async runGame() {
-		await WxService.login(); //登录
-
-		// 注册器
-		this.mainRegister();
+		await App.ins().reqAd()
 		await this.loadResource();
+		SceneManager.ins().runScene(MainScene);
+		await App.ins().initDeviceId()
+		// console.log('main->runGame')
+		await App.ins().login() //登录
+		LoadingUI.setLoadingState(0.05)
+		App.ins().splash()
+		RankModel.ins().init()
+
+		// // 注册器
+		await this.mainRegister();
+		await this.loadConfig();
+		LoadingUI.setLoadingState(0.1)
 
 		TimerManager.ins();
-
-		SceneManager.ins().runScene(MainScene);
-
+		UserModel.ins().setRefreshTimer()  //必须先登录!
 		// 初始化分享
 		this.initShare();
 		// StageUtils.ins().initBgm()
-		SoundManager.ins().playBg(/*"bgm_mp3"*/)
+		// SoundManager.ins().playBg()
+		LoadingUI.start()
 	}
 
 	private async loadResource() {
 		try {
-			await RES.loadConfig("resource/default.res.json", "resource/");
+			// await RES.loadConfig("resource/default.res.json", "resource/");
+			await RES.loadConfig("default.res.json", App.ins().getResRoot());
 			await this.loadTheme();
-			await this.loadConfig();
+			await RES.loadGroup('loading')
 		}
 		catch (e) {
 			console.error(e);
@@ -137,6 +157,9 @@ class Main extends eui.UILayer {
      * 初始化分享配置
      */
 	private initShare() {
+		if (Main.gamePlatform != Main.platformTT) {
+			return
+		}
 		wx.showShareMenu({
 			withShareTicket: false
 		});
@@ -151,10 +174,11 @@ class Main extends eui.UILayer {
 		}
 	}
 
-    /**
-     * 全局初始注册
-     */
-	private mainRegister() {
+	/**视屏注册 仅Main.platformTT可用*/
+	private async mainRegister() {
+		if (Main.gamePlatform != Main.platformTT) {
+			return
+		}
 		wx.onMemoryWarning(function () {
 			// todo: 提交日志
 			console.error("onMemoryWarning");
@@ -167,6 +191,7 @@ class Main extends eui.UILayer {
 		} catch (error) {
 			console.error("init recorder error:", error);
 		}
+		Main.systemInfo = await wxapi.getSystemInfo()
 
 		// 程序切到前台的回调操作
 		/*egret.lifecycle.addLifecycleListener((context) => {
@@ -187,34 +212,26 @@ class Main extends eui.UILayer {
 				}
 			})
 		});*/
-		egret.lifecycle.onPause = () => {
-			egret.ticker.pause();
-			SoundManager.ins().setEffectOn(false)
-		}
-		egret.lifecycle.onResume = () => {
-			egret.ticker.resume();
-			SoundManager.ins().setEffectOn(true)
-		}
 	}
 
 	public static async startGame() {
+		console.log('->startGame')
 		// 登录
 		if (!Main.isLogin) {
-			Main.isLogin = await WxService.login();
+			console.log('->startGame1')
+			await App.ins().login() //	Main.isLogin = await  WxService.login();
 			if (!Main.isLogin) {
+				console.error('main->登录请求失败')
 				return;
 			}
 		}
-		// 隐藏广告
-		// if (this.loadingBanner) {
-		//     this.loadingBanner.hide();
-		// }
+		await TimerManager.ins().deleyPromisse(500)
 
 		// 判断是否分享进来的
-		let launchObj = wx.getLaunchOptionsSync();
-		console.log("launchObj:", JSON.stringify(launchObj));
-		let share: boolean = launchObj.query.share;
-		let shareVideo: boolean = launchObj.query.shareVideo;
+		// let launchObj = wx.getLaunchOptionsSync();
+		// console.log("launchObj:", JSON.stringify(launchObj));
+		// let share: boolean = launchObj.query.share;
+		// let shareVideo: boolean = launchObj.query.shareVideo;
 
 		let dayStart = DateUtil.getDayStart();
 		let awardTime = await CacheUtil.get(Constant.LOGIN_AWARD);
@@ -224,8 +241,8 @@ class Main extends eui.UILayer {
 			ViewManager.ins().open(LoginAwardWin)
 		}
 		ViewManager.ins().open(HomeWin)
+		ViewManager.ins().close(LoadingUI)
 		ViewManager.ins().open(NavigationWin)
-		// ViewManager.ins().close(LoadingUI)
 	}
 }
 window["Main"] = Main

@@ -11,7 +11,7 @@ class AwardType {
 
     public static SHARE_VIDEO_AWARD = 3;
 
-    public static UNLOCK_COLOR = 4;
-    
+    public static TIP_VIDEO = 4;
+
 }
 window["AwardType"] = AwardType;

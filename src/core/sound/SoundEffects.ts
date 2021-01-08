@@ -62,5 +62,17 @@ class SoundEffects extends BaseSound {
 		}
 		this.playSound(data);
 	}*/
+	/**
+	 * 检测一个文件是否要清除，子类重写
+	 * @param key
+	 * @returns {boolean}
+	 */
+	public checkCanClear(key: string): boolean {  //单词的声音要清除
+		let arr = ['square_tap_mp3', 'pass_mp3', 'finish_mp3', 'error_mp3', 'letter_tap_mp3']
+		if (arr.indexOf(key) >= 0) {
+			return false
+		}
+		return true;
+	}
 }
 window["SoundEffects"] = SoundEffects

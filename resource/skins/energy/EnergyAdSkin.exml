@@ -2,11 +2,16 @@
 <e:Skin class="EnergyAdSkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
         xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
     <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
-    <e:Group width="669" height="688" horizontalCenter="0" verticalCenter="0">
+    <e:Group width="669" height="688" horizontalCenter="0" verticalCenter="-7">
         <e:Image id="bg" x="0" y="0" source="energy_ad_bg_png" />
-        <e:Image y="335" source="energy_bar_icon_png" horizontalCenter="0" />
+        <e:Image id="titleImg" x="114" y="59" source="energy_ad_title_png" />
+        <e:Image y="335" source="energy_bar_icon_png" horizontalCenter="0" scaleX="1.3" scaleY="1.3" />
         <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="dialog_close_btn_png" right="-10" top="-5" />
-        <ns1:BaseBtn id="btn" label="" skinName="Btn2Skin" icon="energy_dialog_watch_png" horizontalCenter="0" bottom="80" />
+        <ns1:BaseBtn id="btn" label="" skinName="Btn2Skin" icon="energy_dialog_watch_01_png" horizontalCenter="0"
+                     bottom="80" />
+        <e:Label id="lab" text="观看完30秒视频\n即可获得" y="242" size="32" horizontalCenter="0" textAlign="center"
+                 textColor="0x503E2D" bold="true" lineSpacing="6" />
+        <e:Label id="count" text="1" y="402" size="32" textAlign="center" textColor="0x392A17" bold="true" x="351" />
     </e:Group>
 </e:Skin>
 

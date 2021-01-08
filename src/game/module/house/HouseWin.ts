@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-03 14:59:56 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-13 16:44:10
+ * @Last Modified time: 2020-04-21 14:27:13
  */
 class HouseWin extends BaseEuiView {
 
@@ -25,6 +25,8 @@ class HouseWin extends BaseEuiView {
         this.addTouchEvent(this.closeBtn, this.onClick);
 
         this.upView()
+        // AdService.createBannerAd(Ad.dialogBanner)
+        App.ins().playBannerAd(Ad.dialogBanner)
     }
 
     private upView() {
@@ -38,6 +40,10 @@ class HouseWin extends BaseEuiView {
             arr.sort((a, b) => {
                 return (b.cfg.id - a.cfg.id)
             })
+            let maxId = arr[0].cfg.id
+            for (let i in arr) {
+                arr[i].maxId = maxId
+            }
             this.list.dataProvider = new eui.ArrayCollection(arr)
 
             let index = 0
@@ -48,8 +54,10 @@ class HouseWin extends BaseEuiView {
                 }
             }
             let v1 = 95 + 12
-            let v = v1 * index
-            DisplayUtils.scrollVTo(this.scrol, v)
+            let v = v1 * (index == 0 ? 0 : index - 1)
+            let maxv = v1 * arr.length - 12 - 640
+            maxv = maxv >= 0 ? maxv : 0
+            DisplayUtils.scrollVTo(this.scrol, v, maxv)
         })
     }
 
@@ -58,6 +66,7 @@ class HouseWin extends BaseEuiView {
     public close(...param: any[]): void {
         // this.removeTouchEvent(this.closeBtn, this.onClick);
         // this.removeObserve();
+        App.ins().destoryBanner()
     }
 
     /**点击 */

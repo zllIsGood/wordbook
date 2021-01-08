@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-02 12:09:56 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-07 12:32:29
+ * @Last Modified time: 2020-04-18 18:09:27
  */
 class EnergyFriendWin extends BaseEuiView {
 
@@ -26,6 +26,8 @@ class EnergyFriendWin extends BaseEuiView {
         this.addTouchEvent(this.btn, this.onClick);
 
         this.upView()
+        // AdService.createBannerAd(Ad.dialogBanner)
+        App.ins().playBannerAd(Ad.dialogBanner)
     }
 
     private upView() {
@@ -40,6 +42,7 @@ class EnergyFriendWin extends BaseEuiView {
     public close(...param: any[]): void {
         // this.removeTouchEvent(this.closeBtn, this.onClick);
         // this.removeObserve();
+        App.ins().destoryBanner()
     }
 
     /**点击 */
@@ -54,7 +57,7 @@ class EnergyFriendWin extends BaseEuiView {
                 wx.shareAppMessage({
                     title: '我要分享',
                     query: query,
-                    imageUrl: './resource/assets/other/help_cover.png',
+                    imageUrl: GlobalConfig.helpImgUrl,
                     success: function (res) {
                         console.log('拉起分享 成功');
                         console.log(res);

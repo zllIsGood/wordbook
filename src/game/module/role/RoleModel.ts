@@ -20,6 +20,10 @@ class RoleModel extends BaseClass {
     private pages: number = 0
     private isAllGet = false
 
+    public setCfg(cfg) {
+        this.roleCfg = cfg
+        this.isAllGet = true
+    }
     /**fun 回调*/
     public getALLCfg(fun) {
         if (this.roleCfg == null) {
@@ -80,12 +84,12 @@ class RoleModel extends BaseClass {
     }
 
     public async  getSingle(id: number, fun) {
-        if (this.singleCfg && this.singleCfg.id == id) {
-            fun(this.singleCfg)
-        }
-        else if (this.roleCfg) {
-            let ret = this.getCfgById(this.roleCfg)
+        if (this.isAllGet && this.roleCfg) {
+            let ret = this.getCfgById(id)
             fun(ret)
+        }
+        else if (this.singleCfg && this.singleCfg.id == id) {
+            fun(this.singleCfg)
         }
         else {
             let res = await RequestUtil.getPromise({
@@ -108,7 +112,7 @@ class RoleModel extends BaseClass {
         });
         console.log("PERSION_UPPERSION data:", res);
         if (res.code === 0) {
-            this.singleCfg = res.data.person
+            this.singleCfg = res.data.person ? res.data.person : this.singleCfg
             UserModel.ins().upUserData(res.data.userData)
         }
     }

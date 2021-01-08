@@ -27,7 +27,7 @@ class BaseSound {
 			if (!this.checkCanClear(key))
 				continue;
 			if (currTime - this._cache[key] >= SoundManager.CLEAR_TIME) {
-				//debug.log(key + "已clear")
+				// console.log(key + "已clear")
 				delete this._cache[key];
 				RES.destroyRes(key);
 			}
@@ -41,6 +41,10 @@ class BaseSound {
 	 */
 	public getSound(key: string): egret.Sound {
 		if (!RES.hasRes(key)) {
+			if (this._loadingCache.indexOf(key) != -1) { //避免未加载完多次播放
+				return null;
+			}
+			this._loadingCache.push(key);
 			RES.getResByUrl(key, this.onResourceLoadComplete2, this, RES.ResourceItem.TYPE_SOUND);
 			return
 		}
@@ -75,7 +79,12 @@ class BaseSound {
 
 	public onResourceLoadComplete2(data, key: string) {
 		// console.log(data, key)
-		this.loadedPlay(key)
+		let index: number = this._loadingCache.indexOf(key);
+		if (index != -1) {
+			this._loadingCache.splice(index, 1);
+			this._cache[key] = egret.getTimer();
+			this.loadedPlay(key);
+		}
 	}
 
 	/**

@@ -43,15 +43,16 @@ class DisplayUtils {
 		}
 	}
 
-	public static scrollVTo(scroller: eui.Scroller, v: number): void {
-		TimerManager.ins().doFrame(2, 1, () => {
-			if (scroller.viewport.contentHeight > scroller.height) {
-				// let v = scroller.viewport.contentHeight - (item.y + item.height)
-				let maxv = scroller.viewport.contentHeight - scroller.height
-				// console.log('scrollerToItem:', v)
-				scroller.viewport.scrollV = v > maxv ? maxv : v
-			}
-		}, null)
+	public static scrollVTo(scroller: eui.Scroller, v: number, maxv: number): void {
+		scroller.viewport.validateNow();
+		// TimerManager.ins().doFrame(2, 1, () => {
+		// if (scroller.viewport.contentHeight > scroller.height) {
+		// let v = scroller.viewport.contentHeight - (item.y + item.height)
+		// let maxv = scroller.viewport.contentHeight - scroller.height
+		// console.log('scrollerToItem:', v)
+		scroller.viewport.scrollV = v > maxv ? maxv : v
+		// }
+		// }, null)
 	}
 
 	public static alphaTween(target: egret.DisplayObject, time: number, start: number = 0, end: number = 1) {

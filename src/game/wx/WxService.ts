@@ -21,6 +21,7 @@ class WxService {
                     Main.userData = loginRes.gameData.userData;
                     Main.sageList = loginRes.gameData.sageList;
                     Main.energyConfig = loginRes.gameData.energyConfig;
+                    App.ins().setOpenAd(!loginRes.gameData.isReview)
                     HouseModel.ins().singleCfg = loginRes.gameData.house
                     RoleModel.ins().singleCfg = loginRes.gameData.person
                     LoginUtil.setToken(loginRes.token);

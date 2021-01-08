@@ -33,7 +33,7 @@ class HeroInformationItem extends eui.ItemRenderer {
         if (data.type == 1) {
             this.lab1.text = '人物传记'
         }
-        this.lab2.text = data.description
+        this.lab2.text = '        ' + data.description
 
     }
 

@@ -22,6 +22,7 @@ class PlayModel extends BaseClass {
     private topWords: { alphabet: string, x: number, y: number, isBlank: boolean, state: AlphabetItemState, num: number, input?: string, fromWord: string[] }[] = null
     private bottomWords: { alphabet: string, state: AlphabetItemState, num: number }[] = null
     public oldStage = null
+
     private _tipCount: number = 0
     public set tipCount(n) {
         this._tipCount = n
@@ -189,7 +190,7 @@ class PlayModel extends BaseClass {
                 }
                 if (obj.isBlank) {
                     let add = true
-                    for (let word of words) {
+                    for (let word of words) { //
                         if (word.x == obj.x && word.y == obj.y) {
                             add = false
                             word.fromWord.push(item.word)
@@ -201,7 +202,17 @@ class PlayModel extends BaseClass {
                     }
                 }
                 else {
-                    words.push(obj)
+                    let add = true
+                    for (let word of words) { //
+                        if (word.x == obj.x && word.y == obj.y) {
+                            add = false
+                            word.fromWord.push(item.word)
+                            obj = word
+                        }
+                    }
+                    if (add) {
+                        words.push(obj)
+                    }
                 }
                 this.wordGroup[item.word].push(obj)
             }
@@ -219,6 +230,14 @@ class PlayModel extends BaseClass {
         this.bottomWords = bottomWords
     }
 
+    public getStageWord(word: string) {
+        for (let i in this.stageWords) {
+            if (this.stageWords[i].word == word) {
+                return this.stageWords[i]
+            }
+        }
+    }
+
     public async play() {
         if (this.stage == null) {
             let res = await RequestUtil.getPromise({ url: encodeURI(Main.host + Api.STAGE_PLAY) });
@@ -227,9 +246,13 @@ class PlayModel extends BaseClass {
                 this.stage = res.data.stage
                 this.tipCount = res.data.remainTipsCount
                 this.upUserData(res.data.userData)
+                return true
+            }
+            else {
+                return false
             }
         }
-        return
+        return true
     }
 
     public async playFinsh() {
@@ -243,7 +266,14 @@ class PlayModel extends BaseClass {
             this.wordGroup = null
             this.topWords = null
             this.bottomWords = null
+            this.nextUpgrade = null
+            this.setShowMeans(false)
+            RankModel.ins().setData(UserModel.ins().getStageFinNum())
         }
+    }
+
+    public clearNext() {
+        this.stage = null
     }
 
     public async playTip() {
@@ -254,9 +284,42 @@ class PlayModel extends BaseClass {
         }
     }
 
+    /**是否展示词意*/
+    public showMeans: boolean = false
+    public setShowMeans(bool: boolean) {
+        this.showMeans = bool
+    }
+
+    private nextUpgrade: { count: number, nextBonusState: number, } = null
+    public async getNextUpgrade() {
+        if (this.nextUpgrade) {
+            return this.nextUpgrade
+        }
+        let res = await RequestUtil.getPromise({ url: encodeURI(Main.host + Api.STAGE_NEXTUPGRADE) });
+        console.log("STAGE_NEXTUPGRADE data:", res);
+        if (res.code === 0) {
+            this.nextUpgrade = res.data
+        }
+        return this.nextUpgrade
+    }
+
     private upUserData(data) {
         if (data) {
             UserModel.ins().upUserData(data)
+        }
+    }
+
+    public async testMax(loop: number = 100) { //测试用
+        for (let i = 0; i < loop; i++) {
+            await this.play()
+            await this.playFinsh()
+        }
+    }
+    public async testAddEnergy(loop: number = 100) { //测试用
+        for (let i = 0; i < loop; i++) {
+            AdService.shareProgramAward()
+            AdService.shareVideoAward()
+            AdService.watchAdAward()
         }
     }
 }

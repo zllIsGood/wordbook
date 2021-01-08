@@ -11,6 +11,7 @@ class EnergyFreeItem extends eui.ItemRenderer {
     private lab1: eui.Label;
     private lab2: eui.Label;
     private btn: BaseBtn;
+    imgGet: eui.Image
 
     public data: { type: EnergyFreeType }
 
@@ -37,23 +38,39 @@ class EnergyFreeItem extends eui.ItemRenderer {
         let str
         let icon
         let img
+        let imgGet
+        let scale = 1
         if (type == EnergyFreeType.share) {
             str = '分享获取'
             num = cfg.shareProgramAward //shareVideoAward
             icon = 'energy_dialog_share_btn_png'
             img = 'energy_dialog_share_png'
+            imgGet = 'energy_bar_icon_png'
+            scale = 0.5
         }
         else if (type == EnergyFreeType.watchAdAward) {
             str = '观看广告'
             num = cfg.watchAdAward
             icon = 'energy_dialog_watch_png'
             img = 'energy_dialog_ad_png'
+            imgGet = 'energy_bar_icon_png'
+            scale = 0.5
+        }
+        else if (type == EnergyFreeType.tip) {
+            str = '观看广告'
+            num = 1
+            icon = 'energy_dialog_watch_png'
+            img = 'energy_dialog_ad_png'
+            imgGet = 'tip_icon_ad_png'
+            scale = 1
         }
 
         this.lab1.text = str
         this.lab2.textFlow = new egret.HtmlTextParser().parser(`获得：<font color = '#747474'>${num}</font>`)
         this.img.source = img
         this.btn.icon = icon
+        this.imgGet.source = imgGet
+        DisplayUtils.setScale(this.imgGet, scale)
     }
 
     private onClick(e: egret.TouchEvent): void {
@@ -67,7 +84,7 @@ class EnergyFreeItem extends eui.ItemRenderer {
                     wx.shareAppMessage({
                         title: '我要分享',
                         query: query,
-                        imageUrl: './resource/assets/other/help_cover.png',
+                        imageUrl: GlobalConfig.helpImgUrl,
                         success: function (res) {
                             console.log('拉起分享 成功');
                             console.log(res);
@@ -82,7 +99,15 @@ class EnergyFreeItem extends eui.ItemRenderer {
                     // RecordService.recordShare()
                 }
                 else if (data.type == EnergyFreeType.watchAdAward) {
-                    ViewManager.ins().open(EnergyAdWin)
+                    // ViewManager.ins().open(EnergyAdWin)
+                    App.ins().playRewardVideoAd(AwardType.WATCH_AD_AWARD)
+                }
+                else if (data.type == EnergyFreeType.tip) {
+                    App.ins().watchAdCall(AwardType.TIP_VIDEO, (() => {
+                        AdService.adAddTip(() => {
+                            PlayModel.ins().clearNext()
+                        })
+                    }).bind(this))
                 }
                 break;
         }
@@ -97,5 +122,6 @@ class EnergyFreeItem extends eui.ItemRenderer {
 enum EnergyFreeType {
     share = 1, //分享
     watchAdAward = 2, //广告
+    tip = 3, //增加提示次数
 }
 window["EnergyFreeItem"] = EnergyFreeItem;

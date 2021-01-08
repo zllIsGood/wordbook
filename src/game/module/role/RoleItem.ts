@@ -39,8 +39,16 @@ class RoleItem extends eui.ItemRenderer {
         }
 
         let body = data.bodyImg
-        this.role1.source = body
         let head = data.headImg
+        let isUpLevel = false//true  //是否升级了
+        if (data.stageNum == null && data.sageType != null) { //说明是贤士不是主角
+            isUpLevel = HeroModel.ins().getIsUpLevel(data.id)
+        }
+        if (isUpLevel) {
+            body = data.bodyImg2
+            head = data.headImg2
+        }
+        this.role1.source = body
         this.role2.source = head
         this.playTw()
     }
@@ -53,11 +61,17 @@ class RoleItem extends eui.ItemRenderer {
             return
         }
 
-        let datastr = StringUtils.deleteChangeLine(data.data)
-        let ob = JSON.parse(datastr)
+        // let datastr = StringUtils.deleteChangeLine(data.data)
+        // let ob = JSON.parse(datastr)
+        let isUpLevel = false//true  //是否升级了
+        if (data.stageNum == null && data.sageType != null) { //说明是贤士不是主角
+            isUpLevel = HeroModel.ins().getIsUpLevel(data.id)
+        }
+        let ob = isUpLevel ? data.data2 : data.data
         if (ob.extraParts) {
             this.role3.source = ob.extraParts.img
-            this.role3.y = ob.extraParts.exY
+            // this.role3.y = ob.extraParts.exY
+            this.role3.y = ob.bodyY
             this.role3.visible = true
         }
         else {
@@ -65,10 +79,10 @@ class RoleItem extends eui.ItemRenderer {
             this.role3.visible = false
         }
         this.role1.y = ob.bodyY
-        this.role2.y = ob.headY
+        this.role2.y = ob.bodyY + ob.headY + ob.headH
         this.role2.anchorOffsetY = ob.headH
         this.role2.anchorOffsetX = this.role2.width / 2 //ob.w / 2
-        this.role2.x = 80
+        // this.role2.x = 75
         DisplayUtils.setScale(this.role1, ob.scale)
         DisplayUtils.setScale(this.role2, ob.scale)
         DisplayUtils.setScale(this.role3, ob.scale)

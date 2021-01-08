@@ -6,7 +6,7 @@
         <ns1:WordItem skinName="WordItemSkin" x="200" y="0" />
         <ns1:WordItem skinName="WordItemSkin" x="400" y="0" />
         <e:layout>
-            <e:TileLayout horizontalGap="20" />
+            <e:TileLayout horizontalGap="20" verticalGap="10" />
         </e:layout>
     </e:Group>
 </e:Skin>

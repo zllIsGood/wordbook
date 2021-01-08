@@ -113,7 +113,8 @@ class SoundBg extends BaseSound {
 	 * @returns {boolean}
 	 */
 	public checkCanClear(key: string): boolean {
-		return this._currBg != key;
+		return false
+		// return this._currBg != key;
 	}
 }
 window["SoundBg"] = SoundBg

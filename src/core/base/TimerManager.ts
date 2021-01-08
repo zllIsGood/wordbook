@@ -2,7 +2,7 @@
  * Created by  on 2014/11/23.
  * Timer管理器
  */
-class TimerManager extends BaseSystem {
+class TimerManager extends BaseClass {
 	private _handlers: Array<TimerHandler>;
 	private _delHandlers: Array<TimerHandler>;
 	private _currTime: number;
@@ -89,6 +89,7 @@ class TimerManager extends BaseSystem {
 			return;
 		}
 		this._handlers.splice(i, 1);
+		handler.clear();
 		ObjectPool.push(handler);
 		this._count--;
 	}
@@ -249,6 +250,16 @@ class TimerManager extends BaseSystem {
 				handler.exeTime += gap;
 			}
 		}
+	}
+
+	/**延时多少毫秒*/
+	public deleyPromisse(deley: number, thisObj = null): Promise<any> {
+		return new Promise((resolve, reject) => {
+			TimerManager.ins().doTimer(deley, 1, () => {
+				resolve()
+				// reject()
+			}, thisObj)
+		});
 	}
 }
 

@@ -88,13 +88,41 @@ class StageUtils extends BaseClass {
 			w2 = w1 * h2 / h1
 		}
 		else {
-			h2 = w2 * h1 / h2
+			h2 = w2 * h1 / w1
 		}
 		let stage = this.getStage()
 		stage.removeEventListener(egret.Event.RESIZE, this.resetMode, this)
 		stage.scaleMode = egret.StageScaleMode.FIXED_WIDTH //'fixedWidth';
 		stage.setContentSize(w2, h2)
 		stage.addEventListener(egret.Event.RESIZE, this.resetMode, this) //设置监听屏幕尺寸改变
+	}
+
+	/**相对 750*1334 比例*/
+	public getScale(): number {
+		let w = 750, h = 1334;
+		let w1 = this.getWidth()
+		let h1 = this.getHeight()
+		return (h1 / h > w1 / w) ? (w1 / w) : (h1 / h)
+	}
+
+	public adaptationIpx(bg: egret.DisplayObject) {
+		let w = 750, h = 1334;
+		let w1 = this.getWidth()
+		let h1 = this.getHeight()
+		let biW = w1 / w
+		let biH = h1 / h
+		let bi = biW > biH ? biW : biH
+		DisplayUtils.setScale(bg, bi)
+	}
+
+	public adaptationIpx2(bg: egret.DisplayObject) {
+		let w = 750, h = 1547;
+		let w1 = this.getWidth()
+		let h1 = this.getHeight()
+		let biW = w1 / w
+		let biH = h1 / h
+		let bi = biW > biH ? biW : biH
+		DisplayUtils.setScale(bg, bi)
 	}
 
 	public initBgm() {

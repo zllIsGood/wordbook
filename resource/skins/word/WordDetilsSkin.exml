@@ -2,15 +2,15 @@
 <e:Skin class="WordDetilsSkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
         xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
     <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
-    <e:Group width="687" height="921" horizontalCenter="0" verticalCenter="0">
+    <e:Group width="687" height="921" horizontalCenter="0" verticalCenter="-23.5">
         <e:Image id="bg" source="query_word_dialog_bg_png" x="0" y="0" />
         <e:Image y="220" horizontalCenter="0" source="energy_dialog_wrapper_png" width="580" scale9Grid="70,20,425,123"
                  height="480" />
-        <e:Image id="img1" y="160" source="horn_unplay_png" x="313" />
-        <e:Image id="img2" y="160" source="horn_unplay_png" x="532" />
-        <e:Label id="lab0" text="" bold="true" textColor="0x2D1C08" size="56" x="160" y="95" />
-        <e:Label id="lab1" text="" textColor="0x2D1C08" size="24" x="160" y="165" />
-        <e:Label id="lab2" text="" textColor="0x2D1C08" size="24" x="380" y="165" />
+        <e:Image id="img1" y="150" source="horn_unplay_png" x="313" />
+        <e:Image id="img2" y="150" source="horn_unplay_png" x="532" />
+        <e:Label id="lab0" text="" bold="true" textColor="0x2D1C08" size="56" x="160" y="85" />
+        <e:Label id="lab1" text="" textColor="0x2D1C08" size="24" x="160" y="155" />
+        <e:Label id="lab2" text="" textColor="0x2D1C08" size="24" x="380" y="155" />
         <e:Label id="labL" text="" textColor="0x2D1C08" size="24" y="724" horizontalCenter="-144.5" />
         <e:Label id="labR" text="大家一起来学习" textColor="0x2D1C08" size="24" y="724" horizontalCenter="140.5" />
         <ns1:BaseBtn id="errBtn" label="" skinName="Btn2Skin" icon="word_error_png" y="103" x="62" />

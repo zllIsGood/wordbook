@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-03 09:54:22 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-03 16:36:30
+ * @Last Modified time: 2020-04-18 17:47:55
  */
 class HeroInformationWin extends BaseEuiView {
 
@@ -25,6 +25,8 @@ class HeroInformationWin extends BaseEuiView {
         this.addTouchEvent(this.closeBtn, this.onClick);
         this.data = param[0] ? param[0] : null
         this.upView()
+        // AdService.createBannerAd(Ad.dialogBanner)
+        App.ins().playBannerAd(Ad.dialogBanner)
     }
 
     private upView() {
@@ -47,6 +49,7 @@ class HeroInformationWin extends BaseEuiView {
         // this.removeObserve();
         this.data = null
         this.grp.removeChildren()
+        App.ins().destoryBanner()
     }
 
     /**点击 */

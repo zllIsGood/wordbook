@@ -23,10 +23,11 @@ class EnergyFreeWin extends BaseEuiView {
         this.addTouchEvent(this.closeBtn, this.onClick);
 
         this.upView()
+        App.ins().playBannerAd(Ad.dialogBanner)
     }
 
     private upView() {
-        let data = [{ 'type': EnergyFreeType.share }, { 'type': EnergyFreeType.watchAdAward }]
+        let data = [{ 'type': EnergyFreeType.watchAdAward }, { 'type': EnergyFreeType.tip },]
         this.list.dataProvider = new eui.ArrayCollection(data)
     }
 
@@ -35,6 +36,7 @@ class EnergyFreeWin extends BaseEuiView {
     public close(...param: any[]): void {
         // this.removeTouchEvent(this.closeBtn, this.onClick);
         // this.removeObserve();
+        App.ins().destoryBanner()
     }
 
     /**点击 */

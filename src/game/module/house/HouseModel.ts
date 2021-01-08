@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-03 10:20:40 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-08 18:19:35
+ * @Last Modified time: 2020-04-22 15:15:41
  */
 class HouseModel extends BaseClass {
 
@@ -83,8 +83,8 @@ class HouseModel extends BaseClass {
         if (this.singleCfg && this.singleCfg.id == id) {
             fun(this.singleCfg)
         }
-        else if (this.houseCfg) {
-            let ret = this.getCfgById(this.houseCfg)
+        else if (this.isAllGet && this.houseCfg) {
+            let ret = this.getCfgById(id)
             fun(ret)
         }
         else {
@@ -108,9 +108,15 @@ class HouseModel extends BaseClass {
         });
         console.log("HOUSE_UP data:", res);
         if (res.code === 0) {
-            this.singleCfg = res.data.house
-            UserModel.ins().upUserData(res.data.userData)
+            this.singleCfg = res.data.house ? res.data.house : this.singleCfg
+            // UserModel.ins().upUserData(res.data.userData)
+            Main.userData = res.data.userData
+            this.postUpLevel()
         }
+    }
+
+    public postUpLevel() {
+
     }
 }
 MessageCenter.compile(HouseModel);

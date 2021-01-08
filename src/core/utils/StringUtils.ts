@@ -309,5 +309,13 @@ class StringUtils {
 		}
 		return chnStr;
 	}
+
+	/**大于 999 显示 999+*/
+	public static NumberToMaxString(num: number) {
+		if (num >= 999) {
+			return '999+'
+		}
+		return num.toString()
+	}
 }
 window["StringUtils"] = StringUtils

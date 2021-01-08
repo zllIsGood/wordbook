@@ -32,7 +32,7 @@ class DateUtils {
 	public static TIME_FORMAT_3: number = 3;
 	/**时间格式4 xx天前/xx小时前/xx分钟前 */
 	public static TIME_FORMAT_4: number = 4;
-	/**时间格式5 x天x小时x分x秒 */
+	/**时间格式5 x天x时x分x秒 */
 	public static TIME_FORMAT_5: number = 5;
 	/**时间格式6 h:m:s */
 	public static TIME_FORMAT_6: number = 6;
@@ -390,7 +390,7 @@ class DateUtils {
 	}
 
 	/**
-	 * 格式5 X天X小时X分X秒
+	 * 格式5 X天X时X分X秒
 	 * @param  {number} ms                毫秒
 	 * @param  {number=2} showLength    显示长度（一个时间单位为一个长度）
 	 * @returns string
@@ -651,6 +651,12 @@ class DateUtils {
 		date.setSeconds(0);
 
 		return date.getTime();
+	}
+	/**当前天数*/
+	public static nowDay() {
+		let d = new Date()
+		let day = (d.getTime() - d.getTimezoneOffset() * 60 * 1000) / (24 * 3600 * 1000)
+		return Math.floor(day)
 	}
 }
 

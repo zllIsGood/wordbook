@@ -1,15 +1,300 @@
 {
-	"groups": [],
+	"groups": [
+		{
+			"keys": "energy_bar_btn_png,energy_bar_icon_png,energy_bar_wrapper_png,index_bgm_off_btn_png,index_bgm_on_btn_png,index_energy_btn_png,index_glossary_btn_png,index_play_btn_png,index_rank_btn_png,number_0_png,number_1_png,number_2_png,number_3_png,number_4_png,number_5_png,number_6_png,number_7_png,number_8_png,number_9_png,number_character_png,number_house_png,number_level_png,number_need_png,number_no_png,number_protagonist_png,number_receive_png,upgrade_action_character_png,upgrade_action_house_png,upgrade_action_protagonist_png,index_protagonist_bg_png,index_set_png,index_recruit_btn_png",
+			"name": "main"
+		},
+		{
+			"keys": "loading_bar1_png,loading_bar2_png,loading_bg_jpg",
+			"name": "loading"
+		}
+	],
 	"resources": [
 		{
-			"url": "assets/images/added_glossary_btn.png",
+			"url": "assets/other/share_cover.png",
 			"type": "image",
-			"name": "added_glossary_btn_png"
+			"name": "share_cover_png"
+		},
+		{
+			"url": "assets/other/help_cover.png",
+			"type": "image",
+			"name": "help_cover_png"
+		},
+		{
+			"url": "config/config.json",
+			"type": "json",
+			"name": "config_json"
+		},
+		{
+			"url": "assets/public/scroll.json",
+			"type": "sheet",
+			"name": "scroll_json",
+			"subkeys": "bag_15,bag_16,bag_17,bag_18"
+		},
+		{
+			"url": "assets/music/square_tap.mp3",
+			"type": "sound",
+			"name": "square_tap_mp3"
+		},
+		{
+			"url": "assets/music/error.mp3",
+			"type": "sound",
+			"name": "error_mp3"
+		},
+		{
+			"url": "assets/music/finish.mp3",
+			"type": "sound",
+			"name": "finish_mp3"
+		},
+		{
+			"url": "assets/music/letter_tap.mp3",
+			"type": "sound",
+			"name": "letter_tap_mp3"
+		},
+		{
+			"url": "assets/music/pass.mp3",
+			"type": "sound",
+			"name": "pass_mp3"
+		},
+		{
+			"url": "assets/other/complete_paper.png",
+			"type": "image",
+			"name": "complete_paper_png"
+		},
+		{
+			"url": "assets/other/complete_paper.json",
+			"type": "json",
+			"name": "complete_paper_json"
+		},
+		{
+			"url": "assets/public/checkbox_unselect.png",
+			"type": "image",
+			"name": "checkbox_unselect_png"
+		},
+		{
+			"url": "assets/public/radiobutton_unselect.png",
+			"type": "image",
+			"name": "radiobutton_unselect_png"
+		},
+		{
+			"url": "assets/draw/record-share.png",
+			"type": "image",
+			"name": "record-share_png"
+		},
+		{
+			"url": "assets/draw/record.png",
+			"type": "image",
+			"name": "record_png"
+		},
+		{
+			"url": "assets/draw/recording.png",
+			"type": "image",
+			"name": "recording_png"
+		},
+		{
+			"url": "assets/other/hammer.png",
+			"type": "image",
+			"name": "hammer_png"
+		},
+		{
+			"url": "assets/other/hammer.json",
+			"type": "json",
+			"name": "hammer_json"
+		},
+		{
+			"url": "assets/energy/login_title.png",
+			"type": "image",
+			"name": "login_title_png"
+		},
+		{
+			"url": "assets/energy/energy_dialog_share_01.png",
+			"type": "image",
+			"name": "energy_dialog_share_01_png"
+		},
+		{
+			"url": "assets/energy/energy_dialog_watch_01.png",
+			"type": "image",
+			"name": "energy_dialog_watch_01_png"
+		},
+		{
+			"url": "assets/energy/energy_dialog_watch_02.png",
+			"type": "image",
+			"name": "energy_dialog_watch_02_png"
+		},
+		{
+			"url": "assets/energy/energy_none_free_01.png",
+			"type": "image",
+			"name": "energy_none_free_01_png"
+		},
+		{
+			"url": "assets/energy/login_lq.png",
+			"type": "image",
+			"name": "login_lq_png"
+		},
+		{
+			"url": "assets/loading/loading_bar1.png",
+			"type": "image",
+			"name": "loading_bar1_png"
+		},
+		{
+			"url": "assets/loading/loading_bar2.png",
+			"type": "image",
+			"name": "loading_bar2_png"
+		},
+		{
+			"url": "assets/main/energy_bar_btn.png",
+			"type": "image",
+			"name": "energy_bar_btn_png"
+		},
+		{
+			"url": "assets/main/energy_bar_icon.png",
+			"type": "image",
+			"name": "energy_bar_icon_png"
+		},
+		{
+			"url": "assets/main/energy_bar_wrapper.png",
+			"type": "image",
+			"name": "energy_bar_wrapper_png"
+		},
+		{
+			"url": "assets/main/index_bgm_off_btn.png",
+			"type": "image",
+			"name": "index_bgm_off_btn_png"
+		},
+		{
+			"url": "assets/main/index_bgm_on_btn.png",
+			"type": "image",
+			"name": "index_bgm_on_btn_png"
+		},
+		{
+			"url": "assets/main/index_energy_btn.png",
+			"type": "image",
+			"name": "index_energy_btn_png"
+		},
+		{
+			"url": "assets/main/index_glossary_btn.png",
+			"type": "image",
+			"name": "index_glossary_btn_png"
+		},
+		{
+			"url": "assets/main/index_play_btn.png",
+			"type": "image",
+			"name": "index_play_btn_png"
+		},
+		{
+			"url": "assets/main/index_rank_btn.png",
+			"type": "image",
+			"name": "index_rank_btn_png"
+		},
+		{
+			"url": "assets/main/number_0.png",
+			"type": "image",
+			"name": "number_0_png"
+		},
+		{
+			"url": "assets/main/number_1.png",
+			"type": "image",
+			"name": "number_1_png"
+		},
+		{
+			"url": "assets/main/number_2.png",
+			"type": "image",
+			"name": "number_2_png"
+		},
+		{
+			"url": "assets/main/number_3.png",
+			"type": "image",
+			"name": "number_3_png"
+		},
+		{
+			"url": "assets/main/number_4.png",
+			"type": "image",
+			"name": "number_4_png"
+		},
+		{
+			"url": "assets/main/number_5.png",
+			"type": "image",
+			"name": "number_5_png"
+		},
+		{
+			"url": "assets/main/number_6.png",
+			"type": "image",
+			"name": "number_6_png"
+		},
+		{
+			"url": "assets/main/number_7.png",
+			"type": "image",
+			"name": "number_7_png"
+		},
+		{
+			"url": "assets/main/number_8.png",
+			"type": "image",
+			"name": "number_8_png"
+		},
+		{
+			"url": "assets/main/number_9.png",
+			"type": "image",
+			"name": "number_9_png"
+		},
+		{
+			"url": "assets/main/number_character.png",
+			"type": "image",
+			"name": "number_character_png"
+		},
+		{
+			"url": "assets/main/number_house.png",
+			"type": "image",
+			"name": "number_house_png"
+		},
+		{
+			"url": "assets/main/number_level.png",
+			"type": "image",
+			"name": "number_level_png"
+		},
+		{
+			"url": "assets/main/number_need.png",
+			"type": "image",
+			"name": "number_need_png"
+		},
+		{
+			"url": "assets/main/number_no.png",
+			"type": "image",
+			"name": "number_no_png"
+		},
+		{
+			"url": "assets/main/number_protagonist.png",
+			"type": "image",
+			"name": "number_protagonist_png"
+		},
+		{
+			"url": "assets/main/number_receive.png",
+			"type": "image",
+			"name": "number_receive_png"
+		},
+		{
+			"url": "assets/main/upgrade_action_character.png",
+			"type": "image",
+			"name": "upgrade_action_character_png"
+		},
+		{
+			"url": "assets/main/upgrade_action_house.png",
+			"type": "image",
+			"name": "upgrade_action_house_png"
+		},
+		{
+			"url": "assets/main/upgrade_action_protagonist.png",
+			"type": "image",
+			"name": "upgrade_action_protagonist_png"
 		},
 		{
 			"url": "assets/images/add_glossary_btn.png",
 			"type": "image",
 			"name": "add_glossary_btn_png"
+		},
+		{
+			"url": "assets/images/added_glossary_btn.png",
+			"type": "image",
+			"name": "added_glossary_btn_png"
 		},
 		{
 			"url": "assets/images/character_bonus_btn.png",
@@ -147,21 +432,6 @@
 			"name": "energy_bar_9_png"
 		},
 		{
-			"url": "assets/images/energy_bar_btn.png",
-			"type": "image",
-			"name": "energy_bar_btn_png"
-		},
-		{
-			"url": "assets/images/energy_bar_icon.png",
-			"type": "image",
-			"name": "energy_bar_icon_png"
-		},
-		{
-			"url": "assets/images/energy_bar_wrapper.png",
-			"type": "image",
-			"name": "energy_bar_wrapper_png"
-		},
-		{
 			"url": "assets/images/energy_dialog_ad.png",
 			"type": "image",
 			"name": "energy_dialog_ad_png"
@@ -272,6 +542,21 @@
 			"name": "energy_icon_inactive_png"
 		},
 		{
+			"url": "assets/images/energy_none_bg.png",
+			"type": "image",
+			"name": "energy_none_bg_png"
+		},
+		{
+			"url": "assets/images/energy_none_free.png",
+			"type": "image",
+			"name": "energy_none_free_png"
+		},
+		{
+			"url": "assets/images/energy_none_get.png",
+			"type": "image",
+			"name": "energy_none_get_png"
+		},
+		{
 			"url": "assets/images/glossary-dialog_bg.png",
 			"type": "image",
 			"name": "glossary-dialog_bg_png"
@@ -317,41 +602,6 @@
 			"name": "house_dialog_title_png"
 		},
 		{
-			"url": "assets/images/index_bgm_off_btn.png",
-			"type": "image",
-			"name": "index_bgm_off_btn_png"
-		},
-		{
-			"url": "assets/images/index_bgm_on_btn.png",
-			"type": "image",
-			"name": "index_bgm_on_btn_png"
-		},
-		{
-			"url": "assets/images/index_energy_btn.png",
-			"type": "image",
-			"name": "index_energy_btn_png"
-		},
-		{
-			"url": "assets/images/index_glossary_btn.png",
-			"type": "image",
-			"name": "index_glossary_btn_png"
-		},
-		{
-			"url": "assets/images/index_play_btn.png",
-			"type": "image",
-			"name": "index_play_btn_png"
-		},
-		{
-			"url": "assets/images/index_protagonist_bg.png",
-			"type": "image",
-			"name": "index_protagonist_bg_png"
-		},
-		{
-			"url": "assets/images/index_rank_btn.png",
-			"type": "image",
-			"name": "index_rank_btn_png"
-		},
-		{
 			"url": "assets/images/mastered_btn.png",
 			"type": "image",
 			"name": "mastered_btn_png"
@@ -360,91 +610,6 @@
 			"url": "assets/images/next_pass_btn.png",
 			"type": "image",
 			"name": "next_pass_btn_png"
-		},
-		{
-			"url": "assets/images/number_0.png",
-			"type": "image",
-			"name": "number_0_png"
-		},
-		{
-			"url": "assets/images/number_1.png",
-			"type": "image",
-			"name": "number_1_png"
-		},
-		{
-			"url": "assets/images/number_2.png",
-			"type": "image",
-			"name": "number_2_png"
-		},
-		{
-			"url": "assets/images/number_3.png",
-			"type": "image",
-			"name": "number_3_png"
-		},
-		{
-			"url": "assets/images/number_4.png",
-			"type": "image",
-			"name": "number_4_png"
-		},
-		{
-			"url": "assets/images/number_5.png",
-			"type": "image",
-			"name": "number_5_png"
-		},
-		{
-			"url": "assets/images/number_6.png",
-			"type": "image",
-			"name": "number_6_png"
-		},
-		{
-			"url": "assets/images/number_7.png",
-			"type": "image",
-			"name": "number_7_png"
-		},
-		{
-			"url": "assets/images/number_8.png",
-			"type": "image",
-			"name": "number_8_png"
-		},
-		{
-			"url": "assets/images/number_9.png",
-			"type": "image",
-			"name": "number_9_png"
-		},
-		{
-			"url": "assets/images/number_character.png",
-			"type": "image",
-			"name": "number_character_png"
-		},
-		{
-			"url": "assets/images/number_house.png",
-			"type": "image",
-			"name": "number_house_png"
-		},
-		{
-			"url": "assets/images/number_level.png",
-			"type": "image",
-			"name": "number_level_png"
-		},
-		{
-			"url": "assets/images/number_need.png",
-			"type": "image",
-			"name": "number_need_png"
-		},
-		{
-			"url": "assets/images/number_no.png",
-			"type": "image",
-			"name": "number_no_png"
-		},
-		{
-			"url": "assets/images/number_protagonist.png",
-			"type": "image",
-			"name": "number_protagonist_png"
-		},
-		{
-			"url": "assets/images/number_receive.png",
-			"type": "image",
-			"name": "number_receive_png"
 		},
 		{
 			"url": "assets/images/play_crown.png",
@@ -497,11 +662,6 @@
 			"name": "rank_self_bg_png"
 		},
 		{
-			"url": "assets/images/recruite_return_home.png",
-			"type": "image",
-			"name": "recruite_return_home_png"
-		},
-		{
 			"url": "assets/images/recruit_card.png",
 			"type": "image",
 			"name": "recruit_card_png"
@@ -535,6 +695,11 @@
 			"url": "assets/images/recruit_luck_draw_ani_4.png",
 			"type": "image",
 			"name": "recruit_luck_draw_ani_4_png"
+		},
+		{
+			"url": "assets/images/recruite_return_home.png",
+			"type": "image",
+			"name": "recruite_return_home_png"
 		},
 		{
 			"url": "assets/images/red_dot.png",
@@ -627,21 +792,6 @@
 			"name": "unmaster_btn_png"
 		},
 		{
-			"url": "assets/images/upgrade_action_character.png",
-			"type": "image",
-			"name": "upgrade_action_character_png"
-		},
-		{
-			"url": "assets/images/upgrade_action_house.png",
-			"type": "image",
-			"name": "upgrade_action_house_png"
-		},
-		{
-			"url": "assets/images/upgrade_action_protagonist.png",
-			"type": "image",
-			"name": "upgrade_action_protagonist_png"
-		},
-		{
 			"url": "assets/images/upgrade_dialog_bar_active.png",
 			"type": "image",
 			"name": "upgrade_dialog_bar_active_png"
@@ -677,9 +827,19 @@
 			"name": "word_error_png"
 		},
 		{
+			"url": "assets/images/word_errored.png",
+			"type": "image",
+			"name": "word_errored_png"
+		},
+		{
 			"url": "assets/images/word_magnifier.png",
 			"type": "image",
 			"name": "word_magnifier_png"
+		},
+		{
+			"url": "assets/images/word_radio.png",
+			"type": "image",
+			"name": "word_radio_png"
 		},
 		{
 			"url": "assets/images/word_share_btn.png",
@@ -692,185 +852,119 @@
 			"name": "word_tip_dialog_png"
 		},
 		{
-			"url": "assets/other/share_cover.png",
+			"url": "assets/loading/loading_bg.jpg",
 			"type": "image",
-			"name": "share_cover_png"
+			"name": "loading_bg_jpg"
 		},
 		{
-			"url": "assets/other/help_cover.png",
+			"url": "assets/main/index_protagonist_bg.png",
 			"type": "image",
-			"name": "help_cover_png"
+			"name": "index_protagonist_bg_png"
 		},
 		{
-			"url": "assets/other/course_play4.png",
+			"url": "assets/images/search_icon.png",
 			"type": "image",
-			"name": "course_play4_png"
+			"name": "search_icon_png"
 		},
 		{
-			"url": "assets/other/course_play1.json",
-			"type": "json",
-			"name": "course_play1_json"
-		},
-		{
-			"url": "assets/other/course_play1.png",
-			"type": "image",
-			"name": "course_play1_png"
-		},
-		{
-			"url": "assets/other/course_play2.json",
-			"type": "json",
-			"name": "course_play2_json"
-		},
-		{
-			"url": "assets/other/course_play2.png",
-			"type": "image",
-			"name": "course_play2_png"
-		},
-		{
-			"url": "assets/other/course_play4.json",
-			"type": "json",
-			"name": "course_play4_json"
-		},
-		{
-			"url": "config/config.json",
-			"type": "json",
-			"name": "config_json"
-		},
-		{
-			"url": "assets/public/scroll.json",
-			"type": "sheet",
-			"name": "scroll_json",
-			"subkeys": "bag_15,bag_16,bag_17,bag_18"
-		},
-		{
-			"url": "assets/other/course_play3.png",
-			"type": "image",
-			"name": "course_play3_png"
-		},
-		{
-			"url": "assets/other/course_play3.json",
-			"type": "json",
-			"name": "course_play3_json"
-		},
-		{
-			"url": "assets/music/square_tap.mp3",
-			"type": "sound",
-			"name": "square_tap_mp3"
-		},
-		{
-			"url": "assets/music/error.mp3",
-			"type": "sound",
-			"name": "error_mp3"
-		},
-		{
-			"url": "assets/music/finish.mp3",
-			"type": "sound",
-			"name": "finish_mp3"
-		},
-		{
-			"url": "assets/music/letter_tap.mp3",
-			"type": "sound",
-			"name": "letter_tap_mp3"
-		},
-		{
-			"url": "assets/music/pass.mp3",
-			"type": "sound",
-			"name": "pass_mp3"
-		},
-		{
-			"url": "assets/images/word_errored.png",
-			"type": "image",
-			"name": "word_errored_png"
-		},
-		{
-			"url": "assets/images/word_radio.png",
-			"type": "image",
-			"name": "word_radio_png"
-		},
-		{
-			"url": "assets/images/energy_none_bg.png",
-			"type": "image",
-			"name": "energy_none_bg_png"
-		},
-		{
-			"url": "assets/images/energy_none_get.png",
-			"type": "image",
-			"name": "energy_none_get_png"
-		},
-		{
-			"url": "assets/images/energy_none_free.png",
-			"type": "image",
-			"name": "energy_none_free_png"
-		},
-		{
-			"url": "assets/images/energy_ad_bg.png",
+			"url": "assets/energy/energy_ad_bg.png",
 			"type": "image",
 			"name": "energy_ad_bg_png"
 		},
 		{
-			"url": "assets/loading/loading-start-btn.png",
+			"url": "assets/energy/energy_ad_title.png",
 			"type": "image",
-			"name": "loading-start-btn_png"
+			"name": "energy_ad_title_png"
 		},
 		{
-			"url": "assets/loading/loading.png",
+			"url": "assets/energy/energy_score_btn.png",
 			"type": "image",
-			"name": "loading_png"
+			"name": "energy_score_btn_png"
 		},
 		{
-			"url": "assets/loading/loading-bar.png",
+			"url": "assets/energy/energy_score_title.png",
 			"type": "image",
-			"name": "loading-bar_png"
+			"name": "energy_score_title_png"
 		},
 		{
-			"url": "assets/loading/loading-bar-bg.png",
+			"url": "assets/energy/energy_score_get.png",
 			"type": "image",
-			"name": "loading-bar-bg_png"
+			"name": "energy_score_get_png"
 		},
 		{
-			"url": "assets/loading/loading-logo.png",
+			"url": "assets/energy/score_search.png",
 			"type": "image",
-			"name": "loading-logo_png"
+			"name": "score_search_png"
 		},
 		{
-			"url": "assets/loading/loading-logo-tt.png",
+			"url": "assets/energy/tip_btn_score.png",
 			"type": "image",
-			"name": "loading-logo-tt_png"
+			"name": "tip_btn_score_png"
 		},
 		{
-			"url": "assets/other/complete_paper.png",
+			"url": "assets/public/radiobutton_select.png",
 			"type": "image",
-			"name": "complete_paper_png"
+			"name": "radiobutton_select_png"
 		},
 		{
-			"url": "assets/other/complete_paper.json",
-			"type": "json",
-			"name": "complete_paper_json"
+			"url": "assets/main/index_set.png",
+			"type": "image",
+			"name": "index_set_png"
 		},
 		{
-			"url": "assets/public/checkbox_unselect.png",
+			"url": "assets/images/app_icon.png",
 			"type": "image",
-			"name": "checkbox_unselect_png"
+			"name": "app_icon_png"
 		},
 		{
-			"url": "assets/public/radiobutton_unselect.png",
+			"url": "assets/images/set_about.png",
 			"type": "image",
-			"name": "radiobutton_unselect_png"
+			"name": "set_about_png"
 		},
 		{
-			"url": "assets/draw/record-share.png",
+			"url": "assets/hero/hero_chip.png",
 			"type": "image",
-			"name": "record-share_png"
+			"name": "hero_chip_png"
 		},
 		{
-			"url": "assets/draw/record.png",
+			"url": "assets/hero/hero_rect1.png",
 			"type": "image",
-			"name": "record_png"
+			"name": "hero_rect1_png"
 		},
 		{
-			"url": "assets/draw/recording.png",
+			"url": "assets/hero/hero_rect2.png",
 			"type": "image",
-			"name": "recording_png"
+			"name": "hero_rect2_png"
+		},
+		{
+			"url": "assets/hero/hero_rect3.png",
+			"type": "image",
+			"name": "hero_rect3_png"
+		},
+		{
+			"url": "assets/hero/hero_uplv_bg.png",
+			"type": "image",
+			"name": "hero_uplv_bg_png"
+		},
+		{
+			"url": "assets/main/index_recruit_btn.png",
+			"type": "image",
+			"name": "index_recruit_btn_png"
+		},
+		{
+			"url": "assets/images/check_box.png",
+			"type": "image",
+			"name": "check_box_png"
+		},
+		{
+			"url": "assets/images/check_gou.png",
+			"type": "image",
+			"name": "check_gou_png"
+		},
+		{
+			"url": "assets/images/tip_icon_ad.png",
+			"type": "image",
+			"name": "tip_icon_ad_png"
 		}
 	]
 }

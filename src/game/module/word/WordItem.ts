@@ -47,7 +47,6 @@ class WordItem extends eui.ItemRenderer {
                 from: WordDetilsOpenType.fromPlay,
                 source: this.data.source
             })
-            ViewManager.ins().close(WordBookWin)
         }
         if (this.data.type == WordItemType.fromBook1) {
             ViewManager.ins().open(WordDetilsWin, {
@@ -56,7 +55,6 @@ class WordItem extends eui.ItemRenderer {
                 source: this.data.source,
                 wid: this.data.id
             })
-            ViewManager.ins().close(WordBookWin)
         }
         if (this.data.type == WordItemType.fromBook2) {
             ViewManager.ins().open(WordDetilsWin, {
@@ -65,7 +63,6 @@ class WordItem extends eui.ItemRenderer {
                 source: this.data.source,
                 wid: this.data.id
             })
-            ViewManager.ins().close(WordBookWin)
         }
     }
 

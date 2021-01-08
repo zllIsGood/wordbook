@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-02 16:22:33 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-13 17:59:15
+ * @Last Modified time: 2020-04-30 13:53:40
  */
 class WordDetilsWin extends BaseEuiView {
 
@@ -49,6 +49,21 @@ class WordDetilsWin extends BaseEuiView {
         this.data = param[0]
         this.upView()
         this.upErr()
+        this.upShare()
+        // AdService.createBannerAd(Ad.dialogBanner)
+        App.ins().playBannerAd(Ad.dialogBanner)
+    }
+
+    private upShare() {
+        let bool = WordModel.ins().isShowShare()
+        if (bool) {
+            this.labR.visible = true
+            this.btnR.visible = true
+        }
+        else {
+            this.labR.visible = false
+            this.btnR.visible = false
+        }
     }
 
     private async upView() {
@@ -80,13 +95,26 @@ class WordDetilsWin extends BaseEuiView {
         this.lab1.text = '美 [' + wordDate.basic['us-phonetic'] + ']'
         this.lab2.text = '英 [' + wordDate.basic['uk-phonetic'] + ']'
         this.img1.x = this.lab1.x + this.lab1.width + 10
-        this.img2.x = this.lab2.x + this.lab2.width + 10
+        // this.img2.x = this.lab2.x + this.lab2.width + 10
+        let changeLine = this.lab1.width > 150
+        if (changeLine) {
+            this.img2.y = 185
+            this.lab2.y = 190
+            this.img2.x = this.img1.x
+            this.lab2.x = this.lab1.x
+        }
+        else {
+            this.img2.y = 150
+            this.lab2.y = 155
+            this.img2.x = this.lab2.x + this.lab2.width + 10
+            this.lab2.x = 380
+        }
 
-        let str = `<font  size='32'>词意：</font>\n`
+        let str = `<font  size='32' bold='true'>词意：</font>\n`
         for (let item of wordDate.basic.explains) {
             str += `<font  size='24'>     ${item}</font>\n`
         }
-        str += `<font  size='32'>出处：</font>\n`
+        str += `<font  size='32' bold='true'>出处：</font>\n`
         str += `<font  size='24'>     ${data.source}</font>\n`
 
         this.content.textFlow = new egret.HtmlTextParser().parser(str)
@@ -108,6 +136,7 @@ class WordDetilsWin extends BaseEuiView {
         // this.removeTouchEvent(this.closeBtn, this.onClick);
         // this.removeObserve();
         this.data = null
+        App.ins().destoryBanner()
     }
 
     /**点击 */
@@ -120,14 +149,14 @@ class WordDetilsWin extends BaseEuiView {
                 ViewManager.ins().close(this)
                 break;
             case this.img1:
-                SoundManager.ins().playEffect(this.wordDate.basic['us-speech'], 1)
+                SoundManager.ins().playWord(this.wordDate.basic['us-speech'], 1)
                 this.img1.source = 'horn_play_png'
                 TimerManager.ins().doTimer(2000, 1, () => {
                     this.img1.source = 'horn_unplay_png'
                 }, this)
                 break;
             case this.img2:
-                SoundManager.ins().playEffect(this.wordDate.basic['uk-speech'], 1)
+                SoundManager.ins().playWord(this.wordDate.basic['uk-speech'], 1)
                 this.img2.source = 'horn_play_png'
                 TimerManager.ins().doTimer(2000, 1, () => {
                     this.img2.source = 'horn_unplay_png'
@@ -157,7 +186,7 @@ class WordDetilsWin extends BaseEuiView {
                 wx.shareAppMessage({
                     title: this.data.word,
                     query: query,
-                    imageUrl: './resource/assets/other/share_cover.png',
+                    imageUrl: GlobalConfig.shareImgUrl,
                     success: function (res) {
                         console.log('拉起分享 成功');
                         console.log(res);

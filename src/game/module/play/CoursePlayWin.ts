@@ -2,7 +2,7 @@
  * @Author: zhoualnglang 
  * @Date: 2020-04-01 14:04:46 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-01 20:08:29
+ * @Last Modified time: 2020-04-18 18:24:55
  */
 class CoursePlayWin extends BaseEuiView {
 
@@ -31,17 +31,19 @@ class CoursePlayWin extends BaseEuiView {
         this.addTouchEvent(this.btnR, this.onClick);
 
         this.upView()
+        // AdService.createBannerAd(Ad.dialogBanner)
+        App.ins().playBannerAd(Ad.dialogBanner)
     }
 
     private upView() {
         if (!this.mc) {
             this.mc = new MovieClip()
-            this.mc.x = 50
-            this.mc.y = 200
         }
         else {
             DisplayUtils.removeFromParent(this.mc)
         }
+        this.mc.x = 50
+        this.mc.y = 200
         this.grp.addChild(this.mc)
         let mcPath = GlobalConfig.getCoursePlay()
         this.mc.playFile(mcPath[this.cur], -1)
@@ -73,6 +75,7 @@ class CoursePlayWin extends BaseEuiView {
     public close(...param: any[]): void {
         // this.removeTouchEvent(this.closeBtn, this.onClick);
         // this.removeObserve();
+        App.ins().destoryBanner()
         if (this.mc) {
             DisplayUtils.removeFromParent(this.mc)
         }

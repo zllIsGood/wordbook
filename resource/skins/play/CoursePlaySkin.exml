@@ -2,10 +2,10 @@
 <e:Skin class="CoursePlaySkin" width="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
         xmlns:euiextension="euiextension.*" xmlns:ns1="*" height="1334">
     <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
-    <e:Group id="grp" width="669" height="957" horizontalCenter="0" verticalCenter="0">
+    <e:Group id="grp" width="669" height="957" horizontalCenter="0" verticalCenter="-41.5">
         <e:Image id="bg" x="0" y="0" source="course_dialog_bg_png" />
-        <ns1:BaseBtn id="btnL" label="" y="800" skinName="Btn2Skin" icon="course_btn_left_operate_png" x="100" />
-        <ns1:BaseBtn id="btnR" label="" y="800" skinName="Btn2Skin" icon="course_btn_right_operate_png" x="400" />
+        <ns1:BaseBtn id="btnL" label="" y="791" skinName="Btn2Skin" icon="course_btn_left_operate_png" x="117" />
+        <ns1:BaseBtn id="btnR" label="" y="791" skinName="Btn2Skin" icon="course_btn_right_operate_png" x="455" />
         <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="dialog_close_btn_png" right="-9" top="-7" />
     </e:Group>
 </e:Skin>

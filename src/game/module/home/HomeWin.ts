@@ -2,12 +2,14 @@
  * @Author: zhoualnglang 
  * @Date: 2020-03-31 10:27:29 
  * @Last Modified by: zhoulanglang
- * @Last Modified time: 2020-04-13 16:34:43
+ * @Last Modified time: 2020-06-20 19:58:05
  */
 class HomeWin extends BaseEuiView {
 
     private role: RoleItem;
     private heroGrp: eui.Group;
+    private heroGrp0: eui.Group;
+    private heroGrp1: eui.Group;
     private bg: eui.Image;
     private house: eui.Image;
     private roleJob: RoleJobItem;
@@ -17,6 +19,9 @@ class HomeWin extends BaseEuiView {
     private energyNum: eui.Label;
     private leftTimeLab: eui.Label;
 
+    private recruitRed: eui.Image
+    private recruitkBtn: BaseBtn;
+    private setBtn: BaseBtn;
     private rankBtn: BaseBtn;
     private freeBtn: BaseBtn;
     private wordBtn: BaseBtn;
@@ -24,6 +29,8 @@ class HomeWin extends BaseEuiView {
     private playBtn: BaseBtn;
     private upgradeBtn: BaseBtn;
     private stageGrp: eui.Group;
+    private mainGrp: eui.Group;
+    private mc: MovieClip
 
 
     constructor() {
@@ -37,81 +44,96 @@ class HomeWin extends BaseEuiView {
 
     public open(...param: any[]): void {
         this.addTouchEvent(this.energyBtn, this.onClick);
+        this.addTouchEvent(this.recruitkBtn, this.onClick);
+        this.addTouchEvent(this.setBtn, this.onClick);
         this.addTouchEvent(this.rankBtn, this.onClick);
         this.addTouchEvent(this.freeBtn, this.onClick);
         this.addTouchEvent(this.wordBtn, this.onClick);
         this.addTouchEvent(this.musicBtn, this.onClick);
-        this.addTouchEvent(this.playBtn, this.onClick);
         this.addTouchEvent(this.upgradeBtn, this.onClick);
         this.addTouchEvent(this.roleJob, this.openRoleLevel);
         this.addTouchEvent(this.role, this.openRoleLevel);
         this.addTouchEvent(this.house, this.openHouse);
+        this.addTouchEvent(this.playBtn, this.onPlay);
 
         this.observe(UserModel.ins().postData, this.upView);
-        this.observe(HeroModel.ins().postHide, this.setHero);
+        this.observe(HeroModel.ins().postHero, this.setHero);
+        this.observe(HeroModel.ins().postHero, this.setHero);
+        this.observe(HouseModel.ins().postUpLevel, this.upgradeMc);
+        this.observe(HeroModel.ins().postDailyRecruit, this.upRecruitkBtn);
+
+        this.freeBtn.visible = !App.ins().hideAdIcon()
+
+        this.upRecruitkBtn()
         this.upView()
-        this.adaptationIpx()
+        this.setHero()
+        StageUtils.ins().adaptationIpx2(this.bg)
+        this.setUserProto()
+        SoundManager.ins().playBg()
     }
 
-    public adaptationIpx() {
-        let w = StageUtils.ins().getWidth()
-        let h = StageUtils.ins().getHeight()
-        let bi = (h / w) / (1547 / 750)
-        if (bi > 1) {
-            DisplayUtils.setScale(this.bg, bi)
-        }
-        else {
-            DisplayUtils.setScale(this.bg, 1)
-        }
+    private setUserProto() {
+        let show = Main.gamePlatform == Main.platformApp || Main.gamePlatform == Main.platformIOS
+        this.setBtn.visible = show
     }
 
     private upView() {
-        this.upMap()
+        this.upRole()
+        this.upHouse()
         this.upTop()
         this.upBottom()
-        this.setHero()
+    }
+
+    private upRecruitkBtn() {
+        let c = HeroModel.ins().dailyRecruitCount
+        this.recruitkBtn.label = c + ''
+        let bool = /*App.ins().isOpenAd() &&*/ Main.gamePlatform != Main.platformTT/*Main.gamePlatform == Main.platformApp*/
+        this.recruitkBtn.visible = bool
+
+        this.recruitRed.visible = bool && c > 0
     }
 
     private setHero() {
         this.clearHero()
-        let ids = HeroModel.ins().getHeroShow()
-        if (!ids || ids.length == 0) {
+        let heroCfgs = HeroModel.ins().getHeroShowData()
+        if (!heroCfgs) {
             return
         }
 
-        // HeroModel.ins().getIds(ids, (data) => {
-        let data = ids.length > 8 ? ids.slice(0, 8) : ids
-        console.log(data)
-        let w = 160
-        let h = 132
-        let x = 560
-        let y = 0
-        for (let cfg of data) {
+        let data0 = heroCfgs.show0
+        let w = 150
+        let x = 75
+        for (let cfg of data0) {
             let obj = new RoleItem()
-            this.heroGrp.addChildAt(obj, 0)
-            obj.data = cfg.sage
+            this.heroGrp0.addChild(obj)
+            obj.data = cfg
             obj.x = x
-            obj.y = y
-            x -= w
-            if (x < 0) {
-                x = 560
-                y -= h
-            }
+            x += w
+            obj.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openHeroWin, this)
         }
-
-        let child = this.heroGrp.$children
-        for (let i in child) {
-            child[i].addEventListener(egret.TouchEvent.TOUCH_TAP, this.openHeroWin, this)
+        let data1 = heroCfgs.show1
+        x = 0
+        for (let cfg of data1) {
+            let obj = new RoleItem()
+            this.heroGrp1.addChild(obj)
+            obj.data = cfg
+            obj.x = x
+            x += w
+            obj.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openHeroWin, this)
         }
-        // })
     }
 
     private clearHero() {
-        let child = this.heroGrp.$children
-        for (let i in child) {
-            child[i].removeEventListener(egret.TouchEvent.TOUCH_TAP, this.openHeroWin, this)
+        let child0 = this.heroGrp0.$children
+        for (let i in child0) {
+            child0[i].removeEventListener(egret.TouchEvent.TOUCH_TAP, this.openHeroWin, this)
         }
-        this.heroGrp.removeChildren()
+        this.heroGrp0.removeChildren()
+        let child1 = this.heroGrp1.$children
+        for (let i in child1) {
+            child1[i].removeEventListener(egret.TouchEvent.TOUCH_TAP, this.openHeroWin, this)
+        }
+        this.heroGrp1.removeChildren()
     }
 
     private upTop() {
@@ -150,6 +172,7 @@ class HomeWin extends BaseEuiView {
     }
 
     private upBottom() {
+        this.rankBtn.visible = RankModel.ins().isExist()
         let musicOpen = UserModel.ins().musicOpen
         if (musicOpen) {
             this.musicBtn.icon = 'index_bgm_on_btn_png'
@@ -220,11 +243,6 @@ class HomeWin extends BaseEuiView {
         }
     }
 
-    private upMap() {
-        this.upHouse()
-        this.upRole()
-    }
-
     private upRole() {
         RoleModel.ins().getSingle(UserModel.ins().getRoleId(), (data) => {
             this.role.data = data
@@ -248,30 +266,66 @@ class HomeWin extends BaseEuiView {
         this.clearHero()
         TimerManager.ins().remove(this.timer, this)
         this.stageGrp.removeChildren()
+        SoundManager.ins().stopBg()
+        DisplayUtils.removeFromParent(this.mc)
     }
 
     private openHouse() {
+        SoundManager.ins().playEffect('square_tap_mp3')
         ViewManager.ins().open(HouseWin)
     }
 
     private openRoleLevel() {
+        SoundManager.ins().playEffect('square_tap_mp3')
         ViewManager.ins().open(RoleUpLevelWin)
     }
 
     private openHeroWin(e: egret.TouchEvent) {
-        ViewManager.ins().open(HeroWin)
+        SoundManager.ins().playEffect('square_tap_mp3')
+        let t = e.currentTarget as RoleItem
+        ViewManager.ins().open(HeroWin, t.data)
+    }
+
+    private async onPlay(e: egret.TouchEvent) {
+        if (UserModel.ins().getEnergy() > 0 || UserModel.ins().isStartStage()) {
+            let canPlay = await PlayModel.ins().play()
+            if (canPlay) {
+                ViewManager.ins().open(PlayWin)
+                ViewManager.ins().close(this)
+            }
+            else {
+                wx.showToast({ icon: 'none', title: "已全部通关" })
+            }
+        }
+        else {
+            // wx.showToast({ icon: 'none', title: "体力不足" })
+            if (App.ins().hideAdIcon()) {
+                // App.ins().watchAdCall(AwardType.TIP_VIDEO, (() => {
+                //     AdService.watchAdAward(this.onPlay.bind(this))
+                // }).bind(this))
+                wx.showToast({ icon: 'none', title: "体力不足" })
+            }
+            else {
+                ViewManager.ins().open(EnergyAdWin/*EnergyWin*/)
+            }
+        }
     }
 
     private onClick(e: egret.TouchEvent): void {
         switch (e.currentTarget) {
             case this.energyBtn:
-                ViewManager.ins().open(EnergyFreeWin)
+                if (!App.ins().hideAdIcon()) {
+                    ViewManager.ins().open(EnergyAdWin)
+                }
+                break;
+            case this.setBtn:
+                ViewManager.ins().open(SetWin)
                 break;
             case this.rankBtn:
-                // ViewManager.ins().open(RankWin)
+                RankModel.ins().show()
                 break;
             case this.freeBtn:
-                ViewManager.ins().open(EnergyFreeWin)
+                ViewManager.ins().open(EnergyFreeWin/*EnergyAdWin*/)
                 break;
             case this.wordBtn:
                 ViewManager.ins().open(WordBookWin)
@@ -279,16 +333,6 @@ class HomeWin extends BaseEuiView {
             case this.musicBtn:
                 UserModel.ins().musicOpen = !UserModel.ins().musicOpen
                 this.upBottom()
-                break;
-            case this.playBtn:
-                if (UserModel.ins().getEnergy() > 0 || UserModel.ins().isStartStage()) {
-                    ViewManager.ins().open(PlayWin)
-                    ViewManager.ins().close(this)
-                }
-                else {
-                    // wx.showToast({ icon: 'none', title: "体力不足" })
-                    ViewManager.ins().open(EnergyWin)
-                }
                 break;
             case this.upgradeBtn:
                 let upVo = Main.userData.upGradeVo
@@ -304,10 +348,34 @@ class HomeWin extends BaseEuiView {
                     }
                 }
                 break;
-
+            case this.recruitkBtn:
+                let cs = Main.energyConfig.dailyRecruitCount
+                let c = HeroModel.ins().dailyRecruitCount
+                if (cs == c) {
+                    ViewManager.ins().open(HeroSelectWin, true)
+                }
+                else {
+                    App.ins().watchAdCall(AwardType.TIP_VIDEO, () => {
+                        ViewManager.ins().open(HeroSelectWin, true)
+                    })
+                }
+                break;
         }
     }
 
+    private upgradeMc() {
+        if (!this.mc) {
+            this.mc = new MovieClip()
+        }
+        else {
+            DisplayUtils.removeFromParent(this.mc)
+        }
+        this.mainGrp.addChild(this.mc)
+        let cfg = GlobalConfig.getUpHouseMc()
+        this.mc.x = cfg.x
+        this.mc.y = cfg.y
+        this.mc.playFile(App.ins().getResRoot() + cfg.url, 1, this.upView.bind(this))  //必须刷新下整个界面
+    }
 }
 ViewManager.ins().reg(HomeWin, LayerManager.UI_Main);
 window["HomeWin"] = HomeWin;

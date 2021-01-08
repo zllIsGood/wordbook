@@ -9,11 +9,11 @@
             <e:Image x="12" y="-9" source="energy_bar_icon_png" />
             <e:Label id="energyNum" size="25" touchEnabled="false" text="0" x="38" y="37" stroke="2"
                      strokeColor="0x2D1C08" bold="true" />
-            <e:Label id="leftTimeLab" size="25" touchEnabled="false" text="00:00" x="97" y="24" bold="true" stroke="2"
-                     strokeColor="0x2D1C08" />
+            <e:Label id="leftTimeLab" size="25" touchEnabled="false" text="00:00" y="26" bold="true" stroke="2"
+                     strokeColor="0x2D1C08" horizontalCenter="0" />
             <ns1:BaseBtn id="energyBtn" y="-3" x="209" skinName="Btn2Skin" icon="energy_bar_btn_png" />
         </e:Group>
-        <e:Group id="stageGrp" y="1090" horizontalCenter="0">
+        <e:Group id="stageGrp" y="928" horizontalCenter="-5">
             <e:Image y="0" x="0" source="number_need_png" />
             <e:Image y="10" x="10" source="number_0_png" />
             <e:Image y="10" x="10" source="number_protagonist_png" />
@@ -29,8 +29,8 @@
                 <e:HorizontalLayout gap="0" />
             </e:layout>
         </e:Group>
-        <e:Label size="28" touchEnabled="false" text="点击单词查看发音" x="40" y="590" bold="true" textColor="0x7E4829" />
-        <e:Group id="wordGrp" x="40" y="630" width="617">
+        <e:Label size="28" touchEnabled="false" text="点击单词查看发音" x="40" y="540" bold="true" textColor="0x7E4829" />
+        <e:Group id="wordGrp" x="40" y="580" width="617">
             <ns1:WordItem id="" y="0" x="0" skinName="WordItemSkin" />
             <ns1:WordItem id="" y="10" x="10" skinName="WordItemSkin" />
             <ns1:WordItem id="" y="20" x="20" skinName="WordItemSkin" />
@@ -40,8 +40,12 @@
                 <e:TileLayout horizontalGap="8" verticalGap="6" />
             </e:layout>
         </e:Group>
-        <ns1:BaseBtn id="nextBtn" label="" skinName="Btn2Skin" icon="next_pass_btn_png" x="274" y="1175" />
-        <ns1:BaseBtn id="returnBtn" label="" skinName="Btn2Skin" icon="home_btn_png" x="134" y="1175" />
+        <e:CheckBox id="checkbox" y="1120" skinName="CheckBox2" x="264" />
+        <ns1:BaseBtn id="nextBtn" label="" skinName="Btn2Skin" icon="next_pass_btn_png" x="274" bottom="230" />
+        <ns1:BaseBtn id="returnBtn" label="" skinName="Btn2Skin" icon="home_btn_png" x="134" y="985" />
+        <e:Image id="red" y="985" source="red_dot_png" x="224" touchEnabled="false" />
+        <ns1:BaseBtn id="shareBtn" label="" skinName="Btn2Skin" icon="energy_dialog_share_01_png" x="612" y="978.5"
+                     anchorOffsetX="46" anchorOffsetY="47.5" />
     </e:Group>
 </e:Skin>
 

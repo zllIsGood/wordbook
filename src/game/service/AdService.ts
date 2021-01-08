@@ -1,7 +1,8 @@
-/**
- * 奖励工具类
- * @auth kei
- * @date 2020-03-03
+/* 广告
+ * @Author: kei 
+ * @Date: 2020-04-18 17:32:34 
+ * @Last Modified by: zhoulanglang
+ * @Last Modified time: 2020-06-20 17:01:44
  */
 class AdService {
 
@@ -9,8 +10,10 @@ class AdService {
      * 记录当前奖励类型
      */
     private static awardType: number;
+    private static videoCallback: Function
 
-
+    private static isLoadingBanner = false
+    private static bannerAd = null
     /**
      * 初始化视频广告
      */
@@ -33,9 +36,11 @@ class AdService {
                 } else if (this.awardType === AwardType.WATCH_AD_AWARD) {
                     // 观看广告奖励
                     this.watchAdAward();
-                } else if (this.awardType == AwardType.UNLOCK_COLOR) {
-                    // 解锁颜色
-                    // StageService.unlockColor(Main.drawStage);
+                } else if (this.awardType == AwardType.TIP_VIDEO) {
+                    if (this.videoCallback) {
+                        this.videoCallback()
+                        this.videoCallback = null
+                    }
                 }
             });
         } catch (error) {
@@ -46,10 +51,30 @@ class AdService {
     public static createBannerAd(bannerId): any {
         // 初始化banner广告
         try {
-            let bannerWidth = 200;
-            let bannerHeight = bannerWidth / 16 * 9;
+            if (!wx.createBannerAd) {
+                return
+            }
+            if (this.isLoadingBanner) {
+                return
+            }
+            this.isLoadingBanner = true
+            if (this.bannerAd && this.bannerAd.destroy) {
+                this.bannerAd.destroy()
+                this.bannerAd = null
+            }
+            // let scale = StageUtils.ins().getScale()
             let windowWidth = Main.systemInfo.windowWidth;
             let windowHeight = Main.systemInfo.windowHeight;
+            let b = windowWidth / windowHeight > (750 / 1334)
+            let scale
+            if (b) {
+                scale = windowHeight / 1334
+            }
+            else {
+                scale = windowWidth / 750
+            }
+            let bannerWidth = scale * 600 // 200;
+            let bannerHeight = scale * 150 // bannerWidth / 16 * 9;
             let bannerAd = wx.createBannerAd({
                 adUnitId: bannerId,
                 adIntervals: 30,
@@ -60,19 +85,28 @@ class AdService {
                 }
             });
             bannerAd.onResize(size => {
+                // console.log(size.width, size.height);
                 bannerAd.style.left = (windowWidth - size.width) / 2;
                 bannerAd.style.top = windowHeight - size.height;
             });
             bannerAd.onLoad(function () {
+                AdService.isLoadingBanner = false
                 bannerAd.show();
             });
+            this.bannerAd = bannerAd
             return bannerAd;
         } catch (error) {
             console.log("init banner ad error:", error);
         }
     }
 
-
+    public static destoryBanner() {
+        if (this.bannerAd && this.bannerAd.destroy) {
+            this.bannerAd.destroy()
+            AdService.isLoadingBanner = false
+            AdService.bannerAd = null
+        }
+    }
     /**
      * 观看视频广告
      */
@@ -93,9 +127,18 @@ class AdService {
         }
     }
 
-    public static watchAdAward() {
+    /**观看视频广告来提示*/
+    public static watchAdTip(awardType: number, fun: Function) {
+        if (awardType == AwardType.TIP_VIDEO) {
+            this.videoCallback = fun
+        }
+        this.watchAd(awardType)
+    }
+
+    public static watchAdAward(fun?) {
         wx.showLoading({ title: '加载中...', mask: true });
         RequestUtil.post({
+            // data: { watchAdType: 0 },
             url: encodeURI(Main.host + Api.USER_WATCH_AD),
             success(res) {
                 wx.hideLoading();
@@ -109,10 +152,35 @@ class AdService {
                     }
                     UserModel.ins().postData()
                 }
+                else {
+                    wx.showToast({ icon: 'none', title: '观看广告奖励次数不足' })
+                    console.log("观看广告奖励次数不足！", res)
+                }
+                fun && fun()
             },
             fail(err) {
-                console.log("观看广告增加体力失败！", err);
+                console.log("观看广告增加体力失败！", err);
                 wx.hideLoading();
+            }
+        });
+    }
+
+    public static adAddTip(fun?) {
+        RequestUtil.post({
+            data: { watchAdType: 1 },
+            url: encodeURI(Main.host + Api.USER_WATCH_ADV2),
+            success(res) {
+                if (res.code === 0) {
+                    console.log("adAddTip成功！", res);
+                    wx.showToast({ icon: 'none', title: `成功获得1次提示` });
+                }
+                else {
+                    console.log("次数不足！", res)
+                }
+                fun && fun()
+            },
+            fail(err) {
+                console.log("adAddTip失败！", err);
             }
         });
     }
@@ -124,7 +192,7 @@ class AdService {
             success(res) {
                 wx.hideLoading();
                 if (res.code === 0) {
-                    console.log("分享视频增加体力成功！", res);
+                    console.log("分享视频增加体力成功！", res);
                     let oldEnergy = Main.userData.energy;
                     Main.userData = res.data;
                     let add = Main.userData.energy - oldEnergy;
@@ -134,11 +202,11 @@ class AdService {
                     UserModel.ins().postData()
                 }
                 else {
-                    console.log("分享次数不足！", res)
+                    console.log("分享视频奖励次数不足！", res)
                 }
             },
             fail(err) {
-                console.log("分享视频增加体力失败！", err);
+                console.log("分享视频增加体力失败！", err);
                 wx.hideLoading();
             }
         });
@@ -151,7 +219,7 @@ class AdService {
             success(res) {
                 wx.hideLoading();
                 if (res.code === 0) {
-                    console.log("分享增加体力成功！", res);
+                    console.log("分享增加体力成功！", res);
                     let oldEnergy = Main.userData.energy;
                     Main.userData = res.data.userData;
                     let add = Main.userData.energy - oldEnergy;
@@ -161,11 +229,11 @@ class AdService {
                     UserModel.ins().postData()
                 }
                 else {
-                    console.log("分享次数不足！", res)
+                    console.log("分享奖励次数不足！", res)
                 }
             },
             fail(err) {
-                console.log("分享增加体力失败！", err);
+                console.log("分享增加体力失败！", err);
                 wx.hideLoading();
             }
         });
@@ -180,7 +248,7 @@ class AdService {
                 wx.hideLoading();
                 CacheUtil.set(Constant.LOGIN_AWARD, DateUtil.getDayStart() + "");
                 if (res.code === 0) {
-                    console.log("登录领取体力成功！", res);
+                    console.log("登录领取体力成功！", res);
                     let oldEnergy = Main.userData.energy;
                     Main.userData = res.data;
                     let add = Main.userData.energy - oldEnergy;
@@ -193,7 +261,7 @@ class AdService {
                 }
             },
             fail(err) {
-                console.log("登录领取增加体力失败！", err);
+                console.log("登录领取增加体力失败！", err);
                 wx.hideLoading();
             }
         });

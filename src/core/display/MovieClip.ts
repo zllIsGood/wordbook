@@ -164,6 +164,7 @@ class MovieClip extends egret.MovieClip {
 		if (this.texture) {
 			MovieClip.removeDisplayObject(this, this.texture.bitmapData);
 		}
+		this.dispose()
 	}
 
 	/**
@@ -269,7 +270,7 @@ class MovieClip extends egret.MovieClip {
 		mc.y = 0;
 
 		mc.rate = 1;
-		mc.$renderNode.cleanBeforeRender();
+		mc.$renderNode && mc.$renderNode.cleanBeforeRender();
 
 		mc._mcFactory.clearCache();
 		mc._mcFactory.mcDataSet = null;
@@ -337,4 +338,4 @@ class MovieClip extends egret.MovieClip {
 		}
 	}
 }
-window["MovieClip"]=MovieClip
+window["MovieClip"] = MovieClip

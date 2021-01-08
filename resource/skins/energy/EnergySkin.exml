@@ -4,11 +4,11 @@
     <e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.6" />
     <e:Group width="669" height="688" horizontalCenter="0" verticalCenter="0">
         <e:Image id="bg" x="0" y="0" source="energy_none_bg_png" />
-        <e:Label id="leftTimeLab" size="26" touchEnabled="false" text="00:00" y="385" stroke="2" strokeColor="0x000000"
-                 horizontalCenter="0" />
-        <e:Label id="energyLab" size="26" touchEnabled="false" text="全部恢复：0小时0分钟" y="247" textColor="0x000000"
-                 horizontalCenter="0" />
-        <ns1:BaseBtn id="btnR" label="" y="495" skinName="Btn2Skin" icon="energy_none_free_png" x="341" />
+        <e:Label id="leftTimeLab" size="26" touchEnabled="false" text="00:00" y="410" stroke="2" strokeColor="0x2D1C08"
+                 horizontalCenter="-5" textColor="0xFFFFFC" />
+        <e:Label id="energyLab" size="26" touchEnabled="false" text="全部恢复：0小时0分钟" y="236" textColor="0x503E2D"
+                 horizontalCenter="-5" />
+        <ns1:BaseBtn id="btnR" label="" y="495" skinName="Btn2Skin" icon="energy_none_free_01_png" x="341" />
         <ns1:BaseBtn id="btnL" label="" y="495" skinName="Btn2Skin" icon="energy_none_get_png" x="72" />
         <ns1:BaseBtn id="closeBtn" label="" skinName="Btn2Skin" icon="dialog_close_btn_png" right="-9" top="-7" />
     </e:Group>

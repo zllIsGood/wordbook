@@ -27,6 +27,7 @@ class HeroGroupItem extends eui.ItemRenderer {
     public open(...param: any[]): void {
         this.removeEventListener(egret.TouchEvent.ADDED_TO_STAGE, this.open, this)
         this.btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.click, this)
+        MessageCenter.addListener(HeroModel.ins().postHero, this.dataChanged, this, )
     }
 
     protected dataChanged() {
@@ -63,9 +64,12 @@ class HeroGroupItem extends eui.ItemRenderer {
         this.upBtn(boolBtn)
     }
 
-    private async upBtn(b) {
-        let arr = await HeroModel.ins().groupAwardDate()
-        let type = this.data.data[0].sageTypeName
+    private upBtn(b) {
+        let arr = HeroModel.ins().getGroupAward()
+        if (!arr) {
+            return null
+        }
+        let type = this.data.data[0].sageType
         let state = b ? 1 : 0
         if (arr && arr.length > 0 && arr.indexOf(type) >= 0) {
             state = -1
@@ -94,6 +98,7 @@ class HeroGroupItem extends eui.ItemRenderer {
         this.removeEventListener(egret.TouchEvent.REMOVED_FROM_STAGE, this.close, this);
         this.btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.click, this);
         this.grp.removeChildren()
+        MessageCenter.ins().removeAll(this)
     }
 
 }

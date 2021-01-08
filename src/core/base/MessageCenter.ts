@@ -335,8 +335,31 @@ function callDelay(delay: number) {
 		descriptor.value = newfunc2;
 		return descriptor;
 	};
+
 }
 
+// /**延时调用 ms*/
+// function callTimer(delay: number) {
+// 	return function (target, key: string, descriptor: PropertyDescriptor) {
+// 		let method = descriptor.value;
+
+// 		let tkey = `$callTimer${key}`;
+// 		let newfunc = function (...args) {
+// 			this[tkey] = false;
+// 			method.call(this, ...args);
+// 		};
+
+// 		let newfunc2 = function (...args) {
+// 			if (this[tkey]) return;
+// 			this[tkey] = true;
+// 			// egret.setTimeout(newfunc, this, delay, ...args);
+// 			TimerManager.ins().doTimer(delay, 1, newfunc.bind(this, ...args), this); //有隐患，假如TimerManager.ins().removeAll(this)之后，可能会出现异常
+// 		};
+
+// 		descriptor.value = newfunc2;
+// 		return descriptor;
+// 	};
+// }
 
 window["MessageCenter"] = MessageCenter
 window["MessageVo"] = MessageVo

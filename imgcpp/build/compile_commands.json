@@ -1,0 +1,17 @@
+[
+{
+  "directory": "E:/izhou/wordbook/imgcpp/build",
+  "command": "\"D:\\Program Files\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe\"    -g   -o CMakeFiles\\main.dir\\src\\imageutils.cpp.obj -c E:\\izhou\\wordbook\\imgcpp\\src\\imageutils.cpp",
+  "file": "E:/izhou/wordbook/imgcpp/src/imageutils.cpp"
+},
+{
+  "directory": "E:/izhou/wordbook/imgcpp/build",
+  "command": "\"D:\\Program Files\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe\"    -g   -o CMakeFiles\\main.dir\\src\\lodepng.cpp.obj -c E:\\izhou\\wordbook\\imgcpp\\src\\lodepng.cpp",
+  "file": "E:/izhou/wordbook/imgcpp/src/lodepng.cpp"
+},
+{
+  "directory": "E:/izhou/wordbook/imgcpp/build",
+  "command": "\"D:\\Program Files\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe\"    -g   -o CMakeFiles\\main.dir\\src\\main.cpp.obj -c E:\\izhou\\wordbook\\imgcpp\\src\\main.cpp",
+  "file": "E:/izhou/wordbook/imgcpp/src/main.cpp"
+}
+]

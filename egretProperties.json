@@ -27,5 +27,15 @@
     {
       "name": "promise"
     }
-  ]
+  ],
+  "targets": {
+    "android": {
+      "appname": "word",
+      "packagename": "com.word"
+    },
+    "ios": {
+      "appname": "word",
+      "packagename": "com.wordCat.CDreamGame"
+    }
+  }
 }

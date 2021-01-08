@@ -88,8 +88,13 @@ declare interface Window {
 }
 
 
+declare let platform: WxApi;
+
+declare interface Window {
+
+    platform: WxApi
+}
 
 
 
-
-window["DebugPlatform"]=DebugPlatform;
+window["DebugPlatform"] = DebugPlatform;

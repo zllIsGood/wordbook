@@ -31,9 +31,10 @@ class MainScene extends BaseScene {
 		// }
 
 		// ViewManager.ins().open(HomeWin);
-		// ViewManager.ins().open(LoadingUI);
-
-		Main.startGame()
+		ViewManager.ins().open(LoadingUI);
+		if (App.ins().getShowUserProto()) {
+			ViewManager.ins().open(UserProtoWin);
+		}
 	}
 
 	/**

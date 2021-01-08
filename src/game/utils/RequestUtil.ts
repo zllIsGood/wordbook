@@ -54,7 +54,6 @@ class RequestUtil {
     }
 
     private static doRequestPromisse(params): Promise<any> {
-        params = RequestUtil.setHeader(params);
         return new Promise((resolve, reject) => {
             params = RequestUtil.setHeader(params);
             params.success = (res) => {
@@ -83,7 +82,7 @@ class RequestUtil {
         let header = ObjectUtil.isNull(params.header) ? {} : params.header;
         if (StringUtil.isNotBlank(token)) {
             header.zmgToken = token;
-            header.zmgUserId = userId;
+            header.zmgUserId = String(userId); //必须->string  android包对number支持不了
         }
         header.zmgPlatform = Main.gamePlatform;
         header.zmgVersion = Main.version;
@@ -92,4 +91,4 @@ class RequestUtil {
     }
 
 }
-window["RequestUtil"]=RequestUtil;
+window["RequestUtil"] = RequestUtil;

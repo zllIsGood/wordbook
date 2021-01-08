@@ -36,6 +36,11 @@ class Constant {
 
     public static MUSIC_OPEN = "MUSIC_OPEN"
     public static HERO_HIDE = "HERO_HIDE"
+    public static USER_PROTO = "USER_PROTO"
+    public static DAILY_RECRUIT_DATA = "DAILY_RECRUIT_DATA"
+
+    public static AD_DATA = "AD_DATA"
+    public static AD_CFG = "AD_CFG"
 
 }
 window["Constant"] = Constant;
